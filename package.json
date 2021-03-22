@@ -1,0 +1,42 @@
+{
+  "name": "vfbot-wa",
+  "version": "1.0.0",
+  "description": "VideFikri / VideFrelan WhatsApp bot, made for example vf-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "VideFikri",
+  "license": "MIT",
+  "dependencies": {
+    "@open-wa/wa-automate": "^3.6.10",
+    "axios": "^0.21.1",
+    "bent": "^7.3.12",
+    "canvacord": "^5.1.0",
+    "chalk": "^4.1.0",
+    "crypto": "^1.0.1",
+    "emoji-unicode": "^2.0.1",
+    "file-type": "^16.3.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs-extra": "^9.0.1",
+    "marked": "^2.0.0",
+    "moment-timezone": "^0.5.32",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "vfbot-wa"
+  },
+  "keywords": [
+    "bot",
+    "whatsapp"
+  ]
+}
