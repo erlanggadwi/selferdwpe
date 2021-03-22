@@ -38,7 +38,7 @@ let {
 let state = {
     status: () => {
         if(banChats){
-            return 'Nonaktif'
+            return 'aktif'
         }else if(mtcState){
             return 'Nonaktif'
         }else if(!mtcState){
