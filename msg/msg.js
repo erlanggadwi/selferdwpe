@@ -44,6 +44,7 @@ exports.menu = (pushname) => {
 - ${prefix}toimg
 - ${prefix}emot
 - ${prefix}play
+- ${prefix}ocr
 - ${prefix}tiktoknowm
 - ${prefix}tomp3
 - ${prefix}bass
