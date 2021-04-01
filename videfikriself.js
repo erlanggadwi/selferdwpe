@@ -108,6 +108,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
         const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
         const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
+        const isQuotedText = quotedMsg && quotedMsg.type === 'text'
         const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
         const isAudio = type === 'audio'
         const isVoice = type === 'ptt'
@@ -135,7 +136,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 
 
         // ANTI-VIRTEXT
-        if (isGroupMsg && isGroupAdmins && isBotGroupAdmins && !isOwner) {
+        if (isGroupMsg && isGroupAdmins && isBotGroupAdmins && isAntiVirtextOn && !isOwner) {
         if (chats.length > 5000) {
             await erdwpe.sendTextWithMentions(self, `Terdeteksi @${sender.id} telah mengirim Virtext\nAkan dikeluarkan dari group!`)
             await erdwpe.removeParticipant(groupId, sender.id)
@@ -691,6 +692,19 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
                 }
             break
+              case 'ocr':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const dataocr2 = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fotoocr2 = await uploadImages(dataocr2, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(self, 'tunggu sebentar', id)
+                    const preproccessocr = await axios.get(`http://api.lolhuman.xyz/api/ocr?apikey=${lolhuman}&img=${fotoocr2}`)
+                   await erdwpe.reply(self, preproccessocr.data.result, id)
+                    console.log('Success')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            break
              case 'phcomment':
                 if (!query.includes('|')) return await erdwpe.reply(self, 'contoh #phcomment ERDWPE BOT | COMMENT ', id)
                 const usernamePh = query.substring(0, query.indexOf('|') - 1)
@@ -1031,6 +1045,17 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     console.error(err)
                     await erdwpe.reply(self, 'Error!', id)
                 })
+            break
+               case 'alay':
+                if (isQuotedText){
+                    const alay1 = body.slice(6)
+                    const alay2 = axios.get(self, `http://api.lolhuman.xyz/api/alay?apikey=${lolhuman}&text=${alay1}`, id)
+                    await erdwpe.reply(self, alay2.data.result, id)
+                    console.log('Success')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            
             break
             case 'hitunghuruf':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
