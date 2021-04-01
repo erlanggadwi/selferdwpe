@@ -705,35 +705,49 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 
             /* DOWNLOADER */
 
-                case 'play':         
-                erdwpe.reply(from, '*fitur ini sedang dalam perbaikan*', id) 
+                
+                /*case 'play':         
        //if (!sOwneri) return tobz.reply(from,'FITUR DI MATIKAN SEMENTARA',id)
-            /*if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
-            try {
+            if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 erdwpe.reply(from,'Wait.. Sedang di proses',id)
                 const serplay = body.slice(6)
-                const webplay = await fetch(`https://api.vhtear.com/ytmp3?query=${serplay}&apikey=nart0g4ming`)
-                if (!webplay.ok) throw new Error(`Error Get Video : ${webplay.statusText}`)
+                const webplay = await fetch(`http://api.lolhuman.xyz/api/ytplay?apikey=${lolhuman}&query=${serplay}`)
                 const webplay2 = await webplay.json()
-                 if (webplay2.status == false) {
-                    erdwpe.reply(from, `Maaf Terdapat kesalahan saat mengambil data, mohon pilih media lain...`, id)
-                } else {
-                    if (Number(webplay2.result.size.split(' MB')[0]) >= 20.00) return erdwpe.reply(from, 'Maaf durasi music sudah melebihi batas maksimal 10 MB!', id)
-                    const { image, mp3, size, ext, title, duration } = await webplay2.result
-                    const captplay = `「 PLAY 」\n\n➸ Judul : ${title}\n➸ Durasi : ${duration}\n➸ Filesize : ${size}\n➸ Exp : ${ext}\n➸ Link Download : ${mp3}\n\nMusic Sedang Dikirim`
-                    const responses = await fetch(mp3);
+                    //if (Number(webplay2.result.audio.size.split('MB')[0]) >= 20.00) return erdwpe.reply(from, 'Maaf durasi music sudah melebihi batas maksimal 10 MB!', id)
+                    const { thumbnail, audio, title, duration } = await webplay2.result
+                    const captplay = `「 PLAY 」\n\n➸ Judul : ${title}\n➸ Durasi : ${duration}\n➸ Filesize : ${audio.size}\n➸ Link Download : ${audio.link}\n\nMusic Sedang Dikirim`
+                    const responses = await fetch(audio.link);
                     const buffer = await responses.buffer();   
-                    erdwpe.sendFileFromUrl(from, image, `thumb.jpg`, captplay, id)
+                    erdwpe.sendFileFromUrl(from, thumbnail, `thumb.jpg`, captplay, id)
                     await fs.writeFile(`./temp/audio/${sender.id}.mp3`, buffer)
                     await erdwpe.sendFile(from, `./temp/audio/${sender.id}.mp3`, 'audio.mp3', '', id)
                     fs.unlinkSync(`./temp/audio/${sender.id}.mp3`)
+            break*/
+             case 'play':
+                await erdwpe.reply(from, '_tunggu sebentar_', id)
+                const serplay = body.slice(6)
+                const music_yt23 = await axios.get(`http://api.lolhuman.xyz/api/ytplay?apikey=${lolhuman}&query=${serplay}`)
+                try {
+                const { title, uploader, duration, view, like, thumbnail, dislike, audio } = music_yt23.data.result.info
+                const cpt23 = `   *LAGU DI TEMUKAN* ✨\n
+💠 Title✨: ${title}
+💠 Upload✨: ${uploader}
+💠 Duration✨: ${duration}
+💠 Views✨: ${view}
+💠 Like✨ : ${like}
+💠 Dislike✨ : ${audio}
 
+   *LAGU SEDANG DI KIRIM*`
+                await erdwpe.sendFileFromUrl(from, thumbnail, 'ytmp.jpg', `${cpt23}`, id)
+                const pree3 = await fetch(audio[0].link);
+                const buffer = await pree3.buffer();
+                await fs.writeFile('./temp/audio/audio3.mp3', buffer)
+                await erdwpe.sendFile(from, './temp/audio/audio3.mp3', 'lagu.mp3', '', id)
+                fs.unlinkSync(`./temp/audio/audio3.mp3`)
+                } catch {
+                erdwpe.sendFileFromUrl(from, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
                 }
-            } catch (err) {
-                erdwpe.sendText(owner, 'Error Play : '+ err)
-                erdwpe.reply(from, mess.error.Yt3, id)
-            }*/
-            break 
+            break
                 case 'igdl': // by: VideFrelan
             case 'instadl':
                 if (!isUrl(url) && !url.includes('instagram.com')) return await erdwpe.reply(from, 'cara menggunakannya #igdl @usernameignya', id)

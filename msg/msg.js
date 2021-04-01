@@ -40,12 +40,14 @@ exports.menu = (pushname) => {
 - ${prefix}takestick
 - ${prefix}memesticker
 - ${prefix}ttp
+- ${prefix}attp
 - ${prefix}toimg
 - ${prefix}emot
 - ${prefix}play
 - ${prefix}tiktoknowm
 - ${prefix}tomp3
 - ${prefix}bass
+- ${prefix}quotemaker
 - ${prefix}igdl [link ig]
 - ${prefix}igstory [@username]
 - ${prefix}nhder
@@ -74,6 +76,7 @@ exports.menu = (pushname) => {
 - ${prefix}pencil
 - ${prefix}pencil2
 - ${prefix}phcomment
+- ${prefix}vote
 - ${prefix}wasted
 - ${prefix}gun
 - ${prefix}igstalk [@username]
