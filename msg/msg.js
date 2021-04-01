@@ -28,7 +28,7 @@ exports.adminOnly = () => {
 exports.menu = (pushname) => {
     return `
 ◪ 𝗜𝗡𝗙𝗢
-  ❏ Donasi:  _*https://saweria.co/erdwpebot*_  
+  ❏ Donasi:  https://saweria.co/erdwpebot
   ❏ Prefix: 「  ${prefix} 」
   ❏ Nama: *${pushname}*
   
