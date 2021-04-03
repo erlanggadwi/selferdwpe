@@ -14,6 +14,7 @@ const fs = require('fs-extra')
 const bent = require('bent')
 const fetch = require('node-fetch')
 const canvas = require('canvacord')
+const imgbb = require("imgbb-uploader")
 const emojiUnicode = require('emoji-unicode')
 const moment = require('moment-timezone')
 moment.tz.setDefault('Asia/Jakarta').locale('id')
@@ -92,6 +93,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ DATABASES =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
         const _antilink = JSON.parse(fs.readFileSync('./database/antilink.json'))
         const _antivirtext = JSON.parse(fs.readFileSync('./database/antivirtext.json'))
+        const _antinsfw = JSON.parse(fs.readFileSync('./database/antinsfw.json'))
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ END OF DATABASES =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
 
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ VALIDATOR =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
@@ -104,16 +106,20 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const isOwner = sender.id === owner
         const isRegistered = register.checkRegisteredUser(sender.id, _registered)
         const time = moment(t * 1000).format('DD/MM/YY HH:mm:ss')
+        const imgb = '0ed37ce95a75301ffeacf29eaff172da'
         const isImage = type === 'image'
         const isQuotedImage = quotedMsg && quotedMsg.type === 'image'
         const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
         const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
+        const isQuotedText = quotedMsg && quotedMsg.type === 'text'
+        const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
         const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
         const isAudio = type === 'audio'
         const isVoice = type === 'ptt'
         const isQuotedGif = quotedMsg && quotedMsg.mimetype === 'image/gif'
         const isDetectorOn = isGroupMsg ? _antilink.includes(chat.id) : false
         const isAntiVirtextOn = isGroupMsg ? _antivirtext.includes(chat.id) : false
+        const isAntiNsfwOn = isGroupMsg ? _antinsfw.includes(chat.id) : false
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ END OF VALIDATOR =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
 
         //ANTI-GROUP LINK DETECTOR
@@ -133,9 +139,27 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             }
         }
 
+  // detector
+   if (isGroupMsg && isMedia && isAntiNsfwOn && isImage && !isCmd) {
+            const mediaData = await decryptMedia(message, uaOverride)
+            const getUrl = await uploadImages(mediaData, true)
+            const preproccessocr1 = await axios.get(`http://api.lolhuman.xyz/api/nsfwcheck?apikey=${lolhuman}&img=${getUrl}`)
+            const nsfw = preproccessocr1.data.result
+            const nsfw3 = nsfw.replace('%', '')
+            if (nsfw3 >= 15.0){
+                if (isGroupAdmins){
+                    await erdwpe.reply(self, 'Admin Baka Untung Kau Admin Jadi Tidak Saya Kick Ingat Yah Min Ngak Boleh Gitu💕 HARAM DESU', id)
+                } else {
+                    console.log('NSFW DETECT')
+                    await erdwpe.sendTextWithMentions(self, `Terdeteksi @${sender.id} telah mengirim FOTO HARAM dengan presentase ${nsfw}\nMaka dari itu Akan otomatis dikeluarkan dari group!`)
+            await erdwpe.removeParticipant(groupId, sender.id)
+
+        }
+    }
+}
 
         // ANTI-VIRTEXT
-        if (isGroupMsg && isGroupAdmins && isBotGroupAdmins && !isOwner) {
+        if (isGroupMsg && isGroupAdmins && isBotGroupAdmins && isAntiVirtextOn && !isOwner) {
         if (chats.length > 5000) {
             await erdwpe.sendTextWithMentions(self, `Terdeteksi @${sender.id} telah mengirim Virtext\nAkan dikeluarkan dari group!`)
             await erdwpe.removeParticipant(groupId, sender.id)
@@ -282,9 +306,15 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             erdwpe.sendFileFromUrl(self, 'https://source.unsplash.com/1920x1080/?nature','wp.jpeg', 'nih mhank', message.id)
             break
             case 'searchwp':
+               if (!query) return await erdwpe.reply(self, `Untuk mencari wallpaper gunakan command\n\n ${prefix}searchwp megumin`, id)
                 const wp = body.slice(10)
                 const lrando = await axios.get(`http://api.lolhuman.xyz/api/wallpaper?apikey=${lolhuman}&query=${wp}`)
-                erdwpe.sendFileFromUrl(self, lrando.data.result, '', 'nih mhank', message.id)
+                erdwpe.sendFileFromUrl(self, lrando.data.result, '', 'nih mhank', id)
+                .catch(async (err) => {
+                console.error(err)
+                await erdwpe.reply(self, 'Error!', id)
+                })
+        break
                 break
             /* STICKER MAKER */
             case 'takestick':
@@ -389,7 +419,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         await erdwpe.reply(self, '*mana gambar nya ngab*', id)
     }
     break
-    case 'triggered2':
+    case 'round':
                 //if (!query.includes('|')) return await erdwpe.reply(self, `*mana gambar nya ngab*\n\nUntuk membuat stickermeme ${prefix}memesticker meng | gokil`, id)
     if ((isMedia || isQuotedImage) && args.length >= 0) {
         const encryptMedia = isQuotedImage ? quotedMsg : message
@@ -408,15 +438,15 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
     break
             case 'sgifwm':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (isMedia && type === 'video' || mimetype === 'image/gif') {
                     if (!query.includes('|')) return await erdwpe.reply(self, `Untuk membuat stickergif watermark\ngunakan ${prefix}sgifwm author | packname`, id)
+                    if (isMedia && type === 'video' || mimetype === 'image/gif') {
                     const namaPacksgif = query.substring(0, query.indexOf('|') - 1)
                     const authorPacksgif = query.substring(query.lastIndexOf('|') + 2)
                     await erdwpe.reply(self, msg3.wait(), id)
                     try {
                         const mediaData = await decryptMedia(message, uaOverride)
                         const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}`, keepScale: true })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}` })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -432,7 +462,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}`, crop: false })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: `${authorPacksgif}`, pack: `${namaPacksgif}` })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -472,6 +502,25 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFile(self, imageBase64, 'imagesticker.jpg', '_succes_', id)
             } else if (!quotedMsg) return erdwpe.reply(self, 'tidak ada sticker yang di balas!', id)}
             break
+            case 'tovid': 
+            if(isQuotedSticker){
+            await erdwpe.reply(from, 'tunggu sebentar', id)
+            try{
+                const encryptMedia = isQuotedSticker ? quotedMsg : message
+                const mediaData = await decryptMedia(quotedMsg, uaOverride)
+                fs.writeFile('./temp/anu.webp', mediaData)
+                const getUrl2 = await imgbb(imgb, './temp/anu.webp')
+                const link2 = getUrl2.display_url
+                const vid2 = await axios.get(`http://zekais-api.herokuapp.com/webptomp4?url=${link2}`)
+                await erdwpe.sendFileFromUrl(self, vid2.data.result, 'ini.mp4', '', id)
+            } catch (err) {
+                console.log(err)
+                await erdwpe.reply (self, 'ERROR', id)
+            }
+        } else {
+            await erdwpe.reply(self, 'format salah', id)
+        }
+            break
             case 'sticker':
             case 'stiker':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
@@ -490,6 +539,26 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 }
             } else {
                 await erdwpe.reply(self, `Untuk membuat sticker\nsilahkan *upload* atau reply foto dengan caption ${prefix}sticker`, id)
+            }
+            break
+                    case 'stickerround':
+            case 'sr':
+                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
+                if (isMedia && isImage || isQuotedImage) {
+                    try {
+                    await erdwpe.reply(self, msg3.wait(), id)
+                    const encryptMedia = isQuotedImage ? quotedMsg : message
+                    const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
+                    const mediaData = await decryptMedia(encryptMedia, uaOverride)
+                    const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
+                    await erdwpe.sendImageAsSticker(self, imageBase64, { circle: true,  author: 'ERDWPE', pack: 'X R L A N G G A' })
+                    console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                } catch (err) {
+                    console.error(err)
+                    await erdwpe.reply(self, 'Error!', id)
+                }
+            } else {
+                await erdwpe.reply(self, `Untuk membuat sticker\nsilahkan *upload* atau reply foto dengan caption ${prefix}stickerround`, id)
             }
             break
             case 'attp':
@@ -691,6 +760,19 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
                 }
             break
+              case 'ocr':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const dataocr2 = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fotoocr2 = await uploadImages(dataocr2, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(self, 'tunggu sebentar', id)
+                    const preproccessocr = await axios.get(`http://api.lolhuman.xyz/api/ocr?apikey=${lolhuman}&img=${fotoocr2}`)
+                   await erdwpe.reply(self, preproccessocr.data.result, id)
+                    console.log('Success')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            break
              case 'phcomment':
                 if (!query.includes('|')) return await erdwpe.reply(self, 'contoh #phcomment ERDWPE BOT | COMMENT ', id)
                 const usernamePh = query.substring(0, query.indexOf('|') - 1)
@@ -757,7 +839,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 }
             break
             case 'stickergif':
-            case 'stikergif':
+            case 'sgif':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
                 if (isMedia && type === 'video' || mimetype === 'image/gif') {
                     await erdwpe.reply(self, msg3.wait(), id)
@@ -778,7 +860,41 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0 }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                            .then(async () => {
+                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                                
+                            })
+                    } catch (err) {
+                        console.error(err)
+                        await erdwpe.reply(self, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                    }
+                } else {
+                    await erdwpe.reply(self, `Untuk mengconvert GIF/Video menjadi stikergif silahkan upload video/gif dengan caption ${prefix}stikergif`, id)
+                }
+            break
+            case 'sgifround':
+                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
+                if (isMedia && type === 'video' || mimetype === 'image/gif') {
+                    await erdwpe.reply(self, msg3.wait(), id)
+                    try {
+                        const mediaData = await decryptMedia(message, uaOverride)
+                        const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true, crop: false, keepScale: true }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                            .then(async () => {
+                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
+                                
+                            })
+                    } catch (err) {
+                        console.error(err)
+                        await erdwpe.reply(self, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
+                    }
+                } else if (isQuotedGif || isQuotedVideo) {
+                    await erdwpe.reply(self, msg3.wait(), id)
+                    try {
+                        const mediaData = await decryptMedia(quotedMsg, uaOverride)
+                        const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true}, { author: 'ERDWPE', pack: 'X R L A N G G A' })
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -827,14 +943,16 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFileFromUrl(self, `${ig1.media}`, '', rig, id)
             break   
 
-   case 'tiktoknowm': // by: VideFrelan
+   case 'tiktoknowm':
             case 'ttnowm':
             if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
+            await erdwpe.reply(self, 'tunggu sebentar', id)
             const urltik = body.slice(12)
             const tiktok = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${urltik}`)
             const tikto1 = tiktok.data.result
             const rtiktok = `➸ *username*: ${tikto1.author.username}\n➸ *judul*: ${tikto1.title}\n➸ *description*: ${tikto1.description}`
-                await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
+            await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
+            console.log('Sukses Mengirim')
             break   
                case 'ytmp3':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
@@ -1031,6 +1149,16 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     console.error(err)
                     await erdwpe.reply(self, 'Error!', id)
                 })
+            break
+               case 'alay':
+                if (isQuotedText){
+                    const alay1 = body.slice(6)
+                    const alay2 = axios.get(self, `http://api.lolhuman.xyz/api/alay?apikey=${lolhuman}&text=${alay1}`, id)
+                    await erdwpe.reply(self, alay2.data.result, id)
+                    console.log('Success')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
             break
             case 'hitunghuruf':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
@@ -1253,6 +1381,23 @@ break
                     await erdwpe.reply(self, `Berhasil menonaktifkan anti-virtext`, id)
                 } else {
                     await erdwpe.reply(self, `Untuk melindungi grup ini dari virtext\nketik ${prefix}antivirtext on --enable\n${prefix}antivirtext off --disable`, id)
+                }
+            break
+              case 'antinsfw':
+                if (!isGroupMsg) return await erdwpe.reply(self, msg3.groupOnly(), id)
+                if (!isGroupAdmins) return await erdwpe.reply(self, msg3.adminOnly(), id)
+                if (!isBotGroupAdmins) return await erdwpe.reply(self, msg3.botNotAdmin(), id)
+                if (ar[0] === 'on') {
+                    if (isAntiNsfwOn) return await erdwpe.reply(self, `Gagal, Anti NSFW sudah pernah dinyalakan sebelumnya`, id)
+                    _antinsfw.push(groupId)
+                    fs.writeFileSync('./database/antinsfw.json', JSON.stringify(_antinsfw))
+                    await erdwpe.reply(self, `*...:* *ANTI NSFW*\n\nPerhatian untuk member Group ini telah dipasang anti NSFW, jika anda mengirim NSFW, maka akan otomatis terkick!`, id)
+                } else if (ar[0] === 'off') {
+                    _antinsfw.splice(groupId, 1)
+                    fs.writeFileSync('./database/antinsfw.json', JSON.stringify(_antinsfw))
+                    await erdwpe.reply(self, `Berhasil menonaktifkan anti-NSFW`, id)
+                } else {
+                    await erdwpe.reply(self, `Untuk melindungi grup ini dari NSFW\nketik ${prefix}antinsfw on --enable\n${prefix}antinsfw off --disable`, id)
                 }
             break
             /* END OF MODERATION CMDS */

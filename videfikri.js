@@ -77,7 +77,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         }
 
         // ANTI-VIRTEXT
-        if (isGroupMsg && isBotGroupAdmins && !isOwner) {
+        if (isGroupMsg && isGroupAdmins && isBotGroupAdmins && isAntiVirtextOn && !isOwner) {
         if (chats.length > 5000) {
             await erdwpe.sendTextWithMentions(from, `Terdeteksi @${sender.id} telah mengirim Virtext\nAkan dikeluarkan dari group!`)
             await erdwpe.removeParticipant(groupId, sender.id)
@@ -91,11 +91,9 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         // Log
         if (isCmd && !isGroupMsg) {
             console.log(color('[CMD]'), color(time, 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname))
-            await erdwpe.sendSeen(from)
         }
         if (isCmd && isGroupMsg) {
             console.log(color('[CMD]'), color(time, 'yellow'), color(`${command} [${args.length}]`), 'from', color(pushname), 'in', color(name || formattedTitle))
-            await erdwpe.sendSeen(from)
         }
     
     /*let lnomerb = JSON.parse(fs.readFileSync('./database/nomer.json'))
@@ -109,7 +107,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 
 
         switch (command) {
-            case 'register': //By: Slavyam
+             case 'register': //By: Slavyam
                 if (isRegistered) return await erdwpe.reply(from, msg3.notRegistered(pushname), id)
                 const namaUser = query.substring(0, query.indexOf('|') - 1)
                 const umurUser = query.substring(query.lastIndexOf('|') + 2)
@@ -168,11 +166,12 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 })
         break
             case 'cersex':
-                const cersex3 = await fetch('http://docs-jojo.herokuapp.com/api/cersex')
+            erdwpe.reply(from, '*FITUR INI DIMATIKAN OLEH OWNER*', id)
+                /*const cersex3 = await fetch('http://docs-jojo.herokuapp.com/api/cersex')
                 const cersex2 = await cersex3.json()
                    const { judul, cersex } = await cersex2.result
                     const mmkkgsk =`➸ *Judul* : ${judul}\n\n➸ *Cerita* : ${cersex}`
-                     erdwpe.reply(from, mmkkgsk, id)
+                     erdwpe.reply(from, mmkkgsk, id)*/
                    break
                       case 'ceritahoror':
                 const lrando2 = await axios.get(`http://api.lolhuman.xyz/api/ceritahoror?apikey=${lolhuman}`)
@@ -421,7 +420,14 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.reply(from, `Untuk membuat sticker\nsilahkan *upload* atau reply foto dengan caption ${prefix}sticker`, id)
             }
             break
-                 case 'ttp':
+            case 'attp':
+                if (!query) return await erdwpe.reply(from, 'untuk menggunakan command ini ketik #attp xrlangga', id)
+                const textattp = body.slice(6)
+                erdwpe.sendStickerfromUrl(from, `http://api.lolhuman.xyz/api/attp?apikey=${lolhuman}&text=${textattp}`,{ author: 'ERDWPE', pack: 'X R L A N G G A' })
+                console.log('OTW NGAB')
+            break
+
+               case 'ttp':
                 try
                 {
                     const string = body.toLowerCase().includes('#ttp') ? body.slice(5) : body.slice(5)
@@ -555,6 +561,27 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(from, '*mana gambarnya ngab*', id)
                 }
             break
+            case 'patrickmeme' :
+             if (!query.includes('|')) return await erdwpe.reply(from, `*contoh:* ${prefix}patrickmeme bucinaku sayang dia | dia sayang orang lain`, id)
+                erdwpe.reply(from, 'tunggu sebentar', id)
+                const meme1 = meme.split('|')[0]
+                const meme2 = meme.split('|')[1]
+                erdwpe.sendFileFromUrl(from, `https://api.memegen.link/images/ds/${meme1}/${meme2}.png`)
+            break
+             case 'vote' :
+             if (!query.includes('|')) return await erdwpe.reply(from, `*contoh:* ${prefix}vote bucin | login`, id)
+                erdwpe.reply(from, 'tunggu sebentar', id)
+                const vote1 = query.split('|')[0]
+                const vote2 = query.split('|')[1]
+                erdwpe.sendFileFromUrl(from, `https://api.memegen.link/images/ds/${vote1}/${vote2}.png`)
+            break
+              case 'mending' :
+             if (!query.includes('|')) return await erdwpe.reply(from, `*contoh:* ${prefix}mending main | sholat`, id)
+                erdwpe.reply(from, 'tunggu sebentar', id)
+                const mending1 = mending.split('|')[0]
+                const mending2 = mending.split('|')[1]
+                erdwpe.sendFileFromUrl(from, `https://api.memegen.link/images/drake/${mending1}/${mending2}.png`)
+            break
               case 'pencil':
                 if (isMedia && type === 'image' || isQuotedImage) {
                     const encryptMediaWt = isQuotedImage ? quotedMsg : message
@@ -563,6 +590,19 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(from, 'tunggu sebentar', id)
                     await erdwpe.sendFileFromUrl(from, `https://videfikri.com/api/textmaker/pencildrawing/?urlgbr=${fotopencil}`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
+                } else {
+                    await erdwpe.reply(from, '*mana gambarnya ngab*', id)
+                }
+            break
+            case 'quotemaker':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const maker = body.slice(12)
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const dataquote = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fotoquote = await uploadImages(dataquote, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(from, 'tunggu sebentar', id)
+                    await erdwpe.sendFileFromUrl(from, `http://api.lolhuman.xyz/api/quotemaker3?apikey=${lolhuman}&text=${maker}&img=${fotoquote}`, '', 'nih ngab', id)
+                    console.log('Success sending quote maker!')
                 } else {
                     await erdwpe.reply(from, '*mana gambarnya ngab*', id)
                 }
@@ -704,71 +744,51 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             /* END OF STICKER MAKER */
 
             /* DOWNLOADER */
-
-                
-                /*case 'play':         
-       //if (!sOwneri) return tobz.reply(from,'FITUR DI MATIKAN SEMENTARA',id)
-            if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
-                erdwpe.reply(from,'Wait.. Sedang di proses',id)
-                const serplay = body.slice(6)
-                const webplay = await fetch(`http://api.lolhuman.xyz/api/ytplay?apikey=${lolhuman}&query=${serplay}`)
-                const webplay2 = await webplay.json()
-                    //if (Number(webplay2.result.audio.size.split('MB')[0]) >= 20.00) return erdwpe.reply(from, 'Maaf durasi music sudah melebihi batas maksimal 10 MB!', id)
-                    const { thumbnail, audio, title, duration } = await webplay2.result
-                    const captplay = `「 PLAY 」\n\n➸ Judul : ${title}\n➸ Durasi : ${duration}\n➸ Filesize : ${audio.size}\n➸ Link Download : ${audio.link}\n\nMusic Sedang Dikirim`
-                    const responses = await fetch(audio.link);
-                    const buffer = await responses.buffer();   
-                    erdwpe.sendFileFromUrl(from, thumbnail, `thumb.jpg`, captplay, id)
-                    await fs.writeFile(`./temp/audio/${sender.id}.mp3`, buffer)
-                    await erdwpe.sendFile(from, `./temp/audio/${sender.id}.mp3`, 'audio.mp3', '', id)
-                    fs.unlinkSync(`./temp/audio/${sender.id}.mp3`)
-            break*/
-             case 'play':
-                await erdwpe.reply(from, '_tunggu sebentar_', id)
-                const serplay = body.slice(6)
-                const music_yt23 = await axios.get(`http://api.lolhuman.xyz/api/ytplay?apikey=${lolhuman}&query=${serplay}`)
-                try {
-                const { title, uploader, duration, view, like, thumbnail, dislike, audio } = music_yt23.data.result.info
-                const cpt23 = `   *LAGU DI TEMUKAN* ✨\n
-💠 Title✨: ${title}
-💠 Upload✨: ${uploader}
-💠 Duration✨: ${duration}
-💠 Views✨: ${view}
-💠 Like✨ : ${like}
-💠 Dislike✨ : ${audio}
-
-   *LAGU SEDANG DI KIRIM*`
-                await erdwpe.sendFileFromUrl(from, thumbnail, 'ytmp.jpg', `${cpt23}`, id)
-                const pree3 = await fetch(audio[0].link);
-                const buffer = await pree3.buffer();
-                await fs.writeFile('./temp/audio/audio3.mp3', buffer)
-                await erdwpe.sendFile(from, './temp/audio/audio3.mp3', 'lagu.mp3', '', id)
-                fs.unlinkSync(`./temp/audio/audio3.mp3`)
-                } catch {
-                erdwpe.sendFileFromUrl(from, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
-                }
-            break
                 case 'igdl': // by: VideFrelan
             case 'instadl':
-                if (!isUrl(url) && !url.includes('instagram.com')) return await erdwpe.reply(from, 'cara menggunakannya #igdl @usernameignya', id)
+                if (!isUrl(url) && !url.includes('instagram.com')) return await erdwpe.reply(from, 'cara menggunakannya #igdl url image/video nya', id)
                 await erdwpe.reply(from, 'tunggu sebentar', id)
-                downloader.insta(url)
-                    .then(async ({ result }) => {
-                        for (let i = 0; i < result.post.length; i++) {
-                            if (result.post[i].type === 'image') {
-                                await erdwpe.sendFileFromUrl(from, result.post[i].urlDownload, 'igpostdl.jpg', `*...:* *Instagram Downloader* *:...*\n\nUsername: ${result.owner_username}\nCaption: ${result.caption}`, id)
-                            } else if (result.post[i].type === 'video') {
-                                await erdwpe.sendFileFromUrl(from, result.post[i].urlDownload, 'igpostdl.mp4', `*...:* *Instagram Downloader* *:...*\n\nUsername: ${result.owner_username}\nCaption: ${result.caption}`, id)
-                            }
-                        }
-                        console.log('Success sending Instagram media!')
-                    })
-                    .catch(async (err) => {
-                        console.error(err)
-                        await erdwpe.reply(from, 'Error!', id)
-                    })
+                  const urlig = body.slice(6)
+            const ig = await axios.get(`http://api.lolhuman.xyz/api/instagram2?apikey=${lolhuman}&url=${urlig}`)
+            const ig1 = ig.data.result
+            const rig = `➸ *username*: ${ig1.account.username}\n➸ *nama*: ${ig1.account.full_name}`
+                await erdwpe.sendFileFromUrl(from, `${ig1.media}`, '', rig, id)
+            break   
+
+   case 'tiktoknowm': // by: VideFrelan
+            case 'ttnowm':
+            if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(from, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
+            const urltik = body.slice(12)
+            const tiktok = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${urltik}`)
+            const tikto1 = tiktok.data.result
+            const rtiktok = `➸ *username*: ${tikto1.author.username}\n➸ *judul*: ${tikto1.title}\n➸ *description*: ${tikto1.description}`
+                await erdwpe.sendFileFromUrl(from, `${tikto1.link}`, '', rtiktok, id)
+            break   
+               case 'ytmp3':
+                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(from, 'format salah', id)
+                await erdwpe.reply(from, '_tunggu sebentar_', id)
+            const ytmp31 = await axios.get(`http://api.lolhuman.xyz/api/ytaudio2?apikey=${lolhuman}&url=${url}`)
+            const ytmp312 = ytmp31.data.result
+            const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
+                await erdwpe.sendFileFromUrl(from, `${ytmp312.link}`, '', ytmp3123, id)
+            break     
+            case 'ytmp4':
+                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(from, 'format salah', id)
+                await erdwpe.reply(from, '_tunggu sebentar_', id)
+            const ytmp41 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo2?apikey=${lolhuman}&url=${url}`)
+            const ytmp412 = ytmp41.data.result
+            const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.size}`
+                await erdwpe.sendFileFromUrl(from, `${ytmp412.link}`, '', ytmp4123, id)
+            break   
+             case 'play':
+                await erdwpe.reply(from, '_tunggu sebentar_', id)
+            const play3 = body.slice(6)
+            const play4 = await axios.get(`http://api.lolhuman.xyz/api/ytplay2?apikey=${lolhuman}&query=${play3}`)
+            const play5 = play4.data.result
+            const play6 = `➸ *Judul*: ${play5.title}`
+                await erdwpe.sendFileFromUrl(from, `${play5.audio}`, '', play6, id)
             break 
-   case 'ytmp3':
+         case 'ytmp32':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(from, 'format salah', id)
                 await erdwpe.reply(from, '_tunggu sebentar_', id)
                 const music_yt = await axios.get(`http://lolhuman.herokuapp.com/api/ytaudio?apikey=${lolhuman}&url=${url}`)
@@ -781,7 +801,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 💠 Views✨: ${view}
 💠 Like✨ : ${like}
 💠 Desc✨ : ${description}
-
+   
    *LAGU SEDANG DI KIRIM*`
                 await erdwpe.sendFileFromUrl(from, thumbnail, 'ytmp.jpg', `${cpt}`, id)
                 const pree = await fetch(link[0].link);
@@ -793,7 +813,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 erdwpe.sendFileFromUrl(from, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
                 }
             break
-            case 'ytmp4':
+            case 'ytmp42':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(from, 'format salah', id)
                 await erdwpe.reply(from, '_tunggu sebentar_', id)
                 const music_yt2 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
@@ -818,15 +838,35 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 erdwpe.sendFileFromUrl(from, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
                 }
             break
-   case 'tiktoknowm': // by: VideFrelan
-            case 'tktnowm':
-            if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(from, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
-            const urltik = body.slice(12)
-            const tiktok = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${urltik}`)
-            const tikto1 = tiktok.data.result
-            const rtiktok = `➸ *username*: ${tikto1.author.username}\n➸ *judul*: ${tikto1.title}\n➸ *description*: ${tikto1.description}`
-                await erdwpe.sendFileFromUrl(from, `${tikto1.link}`, '', rtiktok, id)
-            break          
+            case 'nightcore':
+                    await erdwpe.reply(from, '_tunggu sebentar_', id)
+                    const encryptMedia = isQuotedAudio || isQuotedVoice ? quotedMsg : message
+                    console.log(color('[WAPI]', 'green'), 'Downloading and decrypting media...')
+                    const mediaData = await decryptMedia(encryptMedia, uaOverride)
+                    const temp = './temp'
+                    const name = new Date() * 1
+                    const fileInputPath = path.join(temp, `${name}.mp3`)
+                    const fileOutputPath = path.join(temp, 'audio', `${name}.mp3`)
+                    fs.writeFile(fileInputPath, mediaData, (err) => {
+                        if (err) return console.error(err)
+                        ffmpeg(fileInputPath)
+                            .audioFilter('asetrate=44100*1.25')
+                            .format('mp3')
+                            .on('start', (commandLine) => console.log(color('[FFmpeg]', 'green'), commandLine))
+                            .on('progress', (progress) => console.log(color('[FFmpeg]', 'green'), progress))
+                            .on('end', async () => {
+                                console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
+                                await erdwpe.sendPtt(from, fileOutputPath, id)
+                                console.log(color('[WAPI]', 'green'), 'Success sending audio!')
+                                setTimeout(() => {
+                                    fs.unlinkSync(fileInputPath)
+                                    fs.unlinkSync(fileOutputPath)
+                                }, 30000)
+                            })
+                            .save(fileOutputPath)
+                    })
+                
+            break
            case 'instastory': // By: VideFrelan
             case 'igstory':
                 erdwpe.reply(from, '_fitur ini sedang dalam perbaikan_', id)
@@ -846,12 +886,11 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 /* STALKER */
                 case 'igstalk':
                 //if (!isRegistered) return await erdwpe.reply(from, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(from, `Format salah!\nuntuk meng-stalk akun Instagram seseorang, gunakan ${prefix}stalkig username\n\nContoh: ${prefix}stalkig videfikri`, id)
-                await erdwpe.reply(from, msg3.wait(), id)
+                if (!query) return await erdwpe.reply(from, `Format salah!\nuntuk meng-stalk akun Instagram seseorang, gunakan ${prefix}stalkig username\n\nContoh: ${prefix}stalkig xrlangga`, id)
                 stalker.instagram(query)
                 .then(async ({result}) => {
-                    const { full_name, username, bio, followers, following, post_count, profile_hd, is_verified, is_private, external_url, fbid, show_suggested_profile } = await result
-                    await erdwpe.sendFileFromUrl(from, profile_hd, 'ProfileIgStalker.jpg', `➸ *Username*: ${username}\n *Full Name*: ${full_name}\n➸ *Biography*: ${bio}\n➸ *Followers*: ${followers}\n➸ *Following*: ${following}\n➸ *Post*: ${post_count}\n➸ *Is_Verified*: ${is_verified}\n➸ *Is_Private*: ${is_private}\n➸ *External URL*: ${external_url}\n➸ *FB ID*: ${fbid}\n➸ *Show Suggestion*: ${show_suggested_profile}`, id)
+                    const { photo_profile, username, fullname, posts, followers, following, bio } = await result
+                    await erdwpe.sendFileFromUrl(from, photo_profile, 'ProfileIgStalker.jpg', `➸ *Username*: ${username}\n *Full Name*: ${fullname}\n➸ *Biography*: ${bio}\n➸ *Followers*: ${followers}\n➸ *Following*: ${following}\n➸ *Post*: ${posts}`, id)
                 }) 
                 .catch(async (err) => {
                     console.error(err)
@@ -1168,7 +1207,7 @@ break
             break
             case 'menu':
             case 'help':
-                await erdwpe.reply(from, msg3.menu(pushname), id)
+                await erdwpe.sendLinkWithAutoPreview(from, msg3.menu(pushname))
                 .then(() => ((isGroupMsg) && (isGroupAdmins)) ? erdwpe.sendText(from, `Menu Admin Grup: *${prefix}menuadmin*`) : null)
             break
 

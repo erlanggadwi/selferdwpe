@@ -28,7 +28,7 @@ exports.adminOnly = () => {
 exports.menu = (pushname) => {
     return `
 ◪ 𝗜𝗡𝗙𝗢
-  ❏ Donasi:  _*https://saweria.co/erdwpebot*_  
+  ❏ Donasi:  https://saweria.co/erdwpebot
   ❏ Prefix: 「  ${prefix} 」
   ❏ Nama: *${pushname}*
   
@@ -36,14 +36,17 @@ exports.menu = (pushname) => {
 - ${prefix}sticker
 - ${prefix}stickergif
 - ${prefix}sgifwm
+- ${prefix}stickerround
 - ${prefix}stickernocrop
 - ${prefix}takestick
 - ${prefix}memesticker
 - ${prefix}ttp
 - ${prefix}attp
 - ${prefix}toimg
+- ${prefix}tovid
 - ${prefix}emot
 - ${prefix}play
+- ${prefix}ocr
 - ${prefix}tiktoknowm
 - ${prefix}tomp3
 - ${prefix}bass
