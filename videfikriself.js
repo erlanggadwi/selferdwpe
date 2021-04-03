@@ -112,7 +112,10 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const isQuotedVideo = quotedMsg && quotedMsg.type === 'video'
         const isQuotedAudio = quotedMsg && quotedMsg.type === 'audio'
         const isQuotedText = quotedMsg && quotedMsg.type === 'text'
+<<<<<<< HEAD
         const isQuotedSticker = quotedMsg && quotedMsg.type === 'sticker'
+=======
+>>>>>>> edb86642e17564e718130f038ea808c5b68060ef
         const isQuotedVoice = quotedMsg && quotedMsg.type === 'ptt'
         const isAudio = type === 'audio'
         const isVoice = type === 'ptt'
@@ -1159,6 +1162,10 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
                 }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> edb86642e17564e718130f038ea808c5b68060ef
             break
             case 'hitunghuruf':
                 //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
