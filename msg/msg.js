@@ -27,63 +27,62 @@ exports.adminOnly = () => {
 
 exports.menu = (pushname) => {
     return `
+
 ◪ 𝗜𝗡𝗙𝗢
   ❏ Donasi:  https://saweria.co/erdwpebot
   ❏ Prefix: 「  ${prefix} 」
   ❏ Nama: *${pushname}*
   
 ◪ 𝗠𝗘𝗡𝗨
-- ${prefix}sticker
-- ${prefix}stickergif
-- ${prefix}sgifwm
-- ${prefix}stickerround
-- ${prefix}stickernocrop
-- ${prefix}takestick
-- ${prefix}memesticker
-- ${prefix}ttp
-- ${prefix}attp
-- ${prefix}toimg
-- ${prefix}tovid
-- ${prefix}emot
-- ${prefix}play
-- ${prefix}ocr
-- ${prefix}tiktoknowm
-- ${prefix}tomp3
-- ${prefix}bass
-- ${prefix}quotemaker
-- ${prefix}igdl [link ig]
-- ${prefix}igstory [@username]
-- ${prefix}nhder
-- ${prefix}twtprof
-- ${prefix}findsticker
-- ${prefix}github
-- ${prefix}email
-- ${prefix}call
-- ${prefix}fakta
-- ${prefix}quotes
-- ${prefix}cersex
-- ${prefix}puisi
-- ${prefix}cerpen
-- ${prefix}loli
-- ${prefix}wallhp
-- ${prefix}ceritahoror
-- ${prefix}walldekstop
-- ${prefix}wallanime
-- ${prefix}searchwp
-- ${prefix}bucin
-- ${prefix}jadwalsholat
-- ${prefix}triggered
-- ${prefix}trash
-- ${prefix}hitler
-- ${prefix}gtav
-- ${prefix}pencil
-- ${prefix}pencil2
-- ${prefix}phcomment
-- ${prefix}vote
-- ${prefix}wasted
-- ${prefix}gun
-- ${prefix}igstalk [@username]
-
+- _${prefix}stickergif_
+- _${prefix}sgifwm_
+- _${prefix}stickerround_
+- _${prefix}stickernocrop_
+- _${prefix}takestick_
+- _${prefix}memesticker_
+- _${prefix}ttp_
+- _${prefix}attp_
+- _${prefix}toimg_
+- _${prefix}tovid_
+- _${prefix}emot_
+- _${prefix}play_
+- _${prefix}ocr_
+- _${prefix}tiktoknowm_
+- _${prefix}tomp3_
+- _${prefix}bass_
+- _${prefix}quotemaker_
+- _${prefix}igdl_ [link ig]
+- _${prefix}igstory_ [username]
+- _${prefix}nhder_
+- _${prefix}twtprof_
+- _${prefix}findsticker_
+- _${prefix}github_
+- _${prefix}email_
+- _${prefix}call_
+- _${prefix}fakta_
+- _${prefix}quotes_
+- _${prefix}cersex_
+- _${prefix}puisi_
+- _${prefix}cerpen_
+- _${prefix}loli_
+- _${prefix}wallhp_
+- _${prefix}ceritahoror_
+- _${prefix}walldekstop_
+- _${prefix}wallanime_
+- _${prefix}searchwp_
+- _${prefix}bucin_
+- _${prefix}jadwalsholat_
+- _${prefix}triggered_
+- _${prefix}trash_
+- _${prefix}hitler_
+- _${prefix}gtav_
+- _${prefix}pencil_
+- _${prefix}pencil2_
+- _${prefix}phcomment_
+- _${prefix}vote_
+- _${prefix}wasted_
+- _${prefix}gun_
+- _${prefix}igstalk_ [username]
      
 _made with ❤ from SBY_
 `
