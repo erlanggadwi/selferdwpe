@@ -286,11 +286,12 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                        })
                break
                       case 'nhder':
-            if (args.length == 0) return erdwpe.reply(self, `untuk menggunakannya ketik #nhder kodenuklirmu`, id)
+             erdwpe.reply(self, '*FITUR INI DIMATIKAN OLEH OWNER*', id)
+            /*if (args.length == 0) return erdwpe.reply(self, `untuk menggunakannya ketik #nhder kodenuklirmu`, id)
          const nhderr = body.slice(7)
          erdwpe.reply(self,'Wait.. Sedang di proses',id)
          const nhder = await axios.get(`http://api.lolhuman.xyz/api/nhentaipdf/${nhderr}?apikey=${lolhuman}`)
-         erdwpe.sendFileFromUrl(self, nhder.data.result, id)
+         erdwpe.sendFileFromUrl(self, nhder.data.result, id)*/
             break 
                  case 'loli':
             erdwpe.sendFileFromUrl(self, 'http://api.lolhuman.xyz/api/random/loli?apikey=erdwpehub28', 'nih loli nya tuan', 'nih loli nya tuan', id)
@@ -1002,6 +1003,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, '', ytmp4123, id)
             break   
              case 'play':
+             if (args.length == 0) return erdwpe.reply(self, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const play3 = body.slice(6)
             const play4 = await axios.get(`http://api.lolhuman.xyz/api/ytplay2?apikey=${lolhuman}&query=${play3}`)
