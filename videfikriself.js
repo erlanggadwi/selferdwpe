@@ -488,7 +488,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFile(self, imageBase64, 'imagesticker.jpg', '_succes_', id)
             } else if (!quotedMsg) return erdwpe.reply(self, 'tidak ada sticker yang di balas!', id)}
             break
-            case 'tovid': 
+           case 'tovid': 
             if(isQuotedSticker){
             await erdwpe.reply(self, 'tunggu sebentar', id)
             try{
@@ -497,8 +497,8 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 fs.writeFile('./temp/anu.webp', mediaData)
                 const getUrl2 = await imgbb(imgb, './temp/anu.webp')
                 const link2 = getUrl2.display_url
-                const vid2 = await axios.get(`http://zekais-api.herokuapp.com/webptomp4?url=${link2}`)
-                await erdwpe.sendFileFromUrl(self, vid2.data.result, 'ini.mp4', '', id)
+                const vid2 = await axios.get(`https://api.lolhuman.xyz/api/convert/webptomp4?apikey=${lolhuman}&img=${link2}`)
+                await erdwpe.sendFileFromUrl(self, vid2.data.result, 'ini.mp4', 'nih ngab', id)
             } catch (err) {
                 console.log(err)
                 await erdwpe.reply (self, 'ERROR', id)
@@ -507,6 +507,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             await erdwpe.reply(self, 'format salah', id)
         }
             break
+
 
                 case 'stickergreyscale':
                 case 'sgreyscale':                
