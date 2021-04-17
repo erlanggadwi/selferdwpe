@@ -411,7 +411,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const mediaData = await decryptMedia(encryptMedia, uaOverride)
         const getUrl = await uploadImages(mediaData, true)
         const ImageBase64 = await meme.custom(getUrl, top, bottom)
-            erdwpe.sendImageAsSticker(self, ImageBase64, { keepScale: true, author: 'ERDWPE', pack: 'X R L A N G G A' })
+            erdwpe.sendImageAsSticker(self, ImageBase64, { keepScale: true, author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                 .then(() => {
                      erdwpe.reply(self, 'Here\'s your sticker')
                     console.log(`Sticker Processed for ${processTime(t, moment())} Second`)
@@ -471,7 +471,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
-                    await erdwpe.sendImageAsSticker(self, imageBase64, { keepScale: true, author: 'ERDWPE', pack: 'X R L A N G G A' })
+                    await erdwpe.sendImageAsSticker(self, imageBase64, { keepScale: true, author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                 } catch (err) {
                     console.error(err)
@@ -488,7 +488,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFile(self, imageBase64, 'imagesticker.jpg', '_succes_', id)
             } else if (!quotedMsg) return erdwpe.reply(self, 'tidak ada sticker yang di balas!', id)}
             break
-           case 'tovid': 
+            case 'tovid': 
             if(isQuotedSticker){
             await erdwpe.reply(self, 'tunggu sebentar', id)
             try{
@@ -498,7 +498,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 const getUrl2 = await imgbb(imgb, './temp/anu.webp')
                 const link2 = getUrl2.display_url
                 const vid2 = await axios.get(`https://api.lolhuman.xyz/api/convert/webptomp4?apikey=${lolhuman}&img=${link2}`)
-                await erdwpe.sendFileFromUrl(self, vid2.data.result, 'ini.mp4', 'nih ngab', id)
+                await erdwpe.sendFileFromUrl(self, vid2.data.result, 'ini.mp4', '©ERDWPE BOT', 'nih ngab', id)
             } catch (err) {
                 console.log(err)
                 await erdwpe.reply (self, 'ERROR', id)
@@ -507,7 +507,6 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             await erdwpe.reply(self, 'format salah', id)
         }
             break
-
 
                 case 'stickergreyscale':
                 case 'sgreyscale':                
@@ -522,7 +521,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     image.greyscale()
                     image.scale(0.5)
                     .write('./temp/anuresult.jpeg')
-                     erdwpe.sendImageAsSticker(self, './temp/anuresult.jpeg', { keepScale: true, author: 'ERDWPE', pack: 'X R L A N G G A' }) 
+                     erdwpe.sendImageAsSticker(self, './temp/anuresult.jpeg', { keepScale: true, author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                      })                
                        } catch (err) {
                 await erdwpe.reply (self, 'ERROR', id)
@@ -544,7 +543,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     image.rotate(180)
                     image.scale(0.5)
                     .write('./temp/anuresult.jpeg')
-                     erdwpe.sendImageAsSticker(self, './temp/anuresult.jpeg', { keepScale: true, author: 'ERDWPE', pack: 'X R L A N G G A' }) 
+                     erdwpe.sendImageAsSticker(self, './temp/anuresult.jpeg', { keepScale: true, author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                      })                
                        } catch (err) {
                 await erdwpe.reply (self, 'ERROR', id)
@@ -565,7 +564,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
-                    await erdwpe.sendImageAsSticker(self, imageBase64, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                    await erdwpe.sendImageAsSticker(self, imageBase64, { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                 } catch (err) {
                     console.error(err)
@@ -585,7 +584,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     const _mimetype = isQuotedImage ? quotedMsg.mimetype : mimetype
                     const mediaData = await decryptMedia(encryptMedia, uaOverride)
                     const imageBase64 = `data:${_mimetype};base64,${mediaData.toString('base64')}`
-                    await erdwpe.sendImageAsSticker(self, imageBase64, { circle: true,  author: 'ERDWPE', pack: 'X R L A N G G A' })
+                    await erdwpe.sendImageAsSticker(self, imageBase64, { circle: true,  author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                     console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                 } catch (err) {
                     console.error(err)
@@ -880,7 +879,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(message, uaOverride)
                         const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -894,7 +893,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, crop: false }, { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -914,7 +913,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(message, uaOverride)
                         const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true, crop: false, keepScale: true }, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true, crop: false, keepScale: true }, { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -928,7 +927,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     try {
                         const mediaData = await decryptMedia(quotedMsg, uaOverride)
                         const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true}, { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true}, { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                             .then(async () => {
                                 console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
                                 
@@ -1004,7 +1003,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, '', ytmp4123, id)
             break   
              case 'play':
-             if (args.length == 0) return erdwpe.reply(self, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
+             if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const play3 = body.slice(6)
             const play4 = await axios.get(`http://api.lolhuman.xyz/api/ytplay2?apikey=${lolhuman}&query=${play3}`)
@@ -1443,7 +1442,7 @@ break
                 try {
                 await erdwpe.reply(self, msg3.wait(), id)
                 const emoji = emojiUnicode(query)
-                await erdwpe.sendImageAsSticker(self, await erdwpe.download(`https://videfikri.com/api/emojitopng/?emojicode=${emoji}`), { author: 'ERDWPE', pack: 'X R L A N G G A' })
+                await erdwpe.sendImageAsSticker(self, await erdwpe.download(`https://videfikri.com/api/emojitopng/?emojicode=${emoji}`), { author: '©ERDWPE BOT', pack: 'xrlangga' }) 
                 } catch (err) {
                     console.error(err)
                     await erdwpe.reply(self, 'Error!', id)
