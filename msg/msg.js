@@ -37,6 +37,7 @@ exports.menu = (pushname) => {
 - _${prefix}stickergif_
 - _${prefix}sgifwm_
 - _${prefix}stickerround_
+- _${prefix}stickernobg_
 - _${prefix}stickernocrop_
 - _${prefix}takestick_
 - _${prefix}memesticker_
