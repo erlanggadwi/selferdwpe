@@ -95,7 +95,6 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const _antilink = JSON.parse(fs.readFileSync('./database/antilink.json'))
         const _antivirtext = JSON.parse(fs.readFileSync('./database/antivirtext.json'))
         const _antinsfw = JSON.parse(fs.readFileSync('./database/antinsfw.json'))
-        const _maghrib = JSON.parse(fs.readFileSync('./database/maghrib.json'))
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ END OF DATABASES =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
 
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ VALIDATOR =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
@@ -122,7 +121,6 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         const isDetectorOn = isGroupMsg ? _antilink.includes(chat.id) : false
         const isAntiVirtextOn = isGroupMsg ? _antivirtext.includes(chat.id) : false
         const isAntiNsfwOn = isGroupMsg ? _antinsfw.includes(chat.id) : false
-        const ismaghribOn = isGroupMsg ? _maghrib.includes(chat.id) : false
         /*=_=_=_=_=_=_=_=_=_=_=_=_=_ END OF VALIDATOR =_=_=_=_=_=_=_=_=_=_=_=_=_=_=_=*/
 
         //ANTI-GROUP LINK DETECTOR
