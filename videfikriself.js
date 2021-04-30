@@ -1016,8 +1016,8 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const ytmp41 = await axios.get(`https://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
             const ytmp412 = ytmp41.data.result
-            const ytmp4123 = `➸ *Judul*: ${ytmp412.judul}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, '', ytmp4123, id)
+            const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.link.size}`
+                await erdwpe.sendFileFromUrl(self, `${ytmp412.link.link}`, '', ytmp4123, id)
             break
              case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
@@ -1028,6 +1028,11 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const play6 = `➸ *Judul*: ${play5.title}`
                 await erdwpe.sendFileFromUrl(self, `${play5.audio}`, '', play6, id)
             break 
+            case 'pptiktok':
+               const pptt = body.slice(10)
+               erdwpe.sendFileFromUrl(self, (`https://api.lolhuman.xyz/api/pptiktok/${pptt}?apikey={lolhuman}, 'pp.jpeg' , '©ERDWPE BOT', '©ERDWPE BOT', id)
+              break
+
          case 'ytmp32':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
