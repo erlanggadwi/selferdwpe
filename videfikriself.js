@@ -1010,7 +1010,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const ytmp31 = await axios.get(`https://api.lolhuman.xyz/api/ytaudio?apikey=${lolhuman}&url=${url}`)
             const ytmp312 = ytmp31.data.result.link[4]
             //const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp312.link`, '', id)
+                await erdwpe.sendFileFromUrl(self, `${ytmp312.link}`, '', id)
             break     
             case 'ytmp4':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
