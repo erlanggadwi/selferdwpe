@@ -1004,7 +1004,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
             console.log('Sukses Mengirim')
             break   
-               case 'ytmp3':
+               /*case 'ytmp3':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const ytmp31 = await axios.get(`https://api.lolhuman.xyz/api/ytaudio?apikey=${lolhuman}&url=${url}`)
@@ -1019,7 +1019,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const ytmp412 = ytmp41.data.result
             const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.link.size}`
                 await erdwpe.sendFileFromUrl(self, `${ytmp412.link.link}`, '', ytmp4123, id)
-            break   
+            break*/   
              case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
@@ -1029,22 +1029,21 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const play6 = `➸ *Judul*: ${play5.title}`
                 await erdwpe.sendFileFromUrl(self, `${play5.audio}`, '', play6, id)
             break 
-         case 'ytmp32':
+         case 'ytmp3':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
                 const music_yt = await axios.get(`http://lolhuman.herokuapp.com/api/ytaudio?apikey=${lolhuman}&url=${url}`)
                 try {
-                const { title, uploader, duration, view, like, thumbnail, description, link } = music_yt.data.result
+                const { title, uploader, duration, view, like, description, link } = music_yt.data.result
                 const cpt = `   *LAGU DI TEMUKAN* ✨\n
 💠 Title✨: ${title}
 💠 Upload✨: ${uploader}
 💠 Duration✨: ${duration}
 💠 Views✨: ${view}
 💠 Like✨ : ${like}
-💠 Desc✨ : ${description}
    
    *LAGU SEDANG DI KIRIM*`
-                await erdwpe.sendFileFromUrl(self, thumbnail, 'ytmp.jpg', `${cpt}`, id)
+                await erdwpe.reply(self, `${cpt}`, id)
                 const pree = await fetch(link[0].link);
                 const buffer = await pree.buffer();
                 await fs.writeFile('./temp/audio/audio.mp3', buffer)
@@ -1054,12 +1053,12 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 erdwpe.sendFileFromUrl(self, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
                 }
             break
-            case 'ytmp42':
+            case 'ytmp4':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
                 const music_yt2 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
                 try {
-                const { title, uploader, duration, view, like, thumbnail, dislike, link } = music_yt2.data.result
+                const { title, uploader, duration, view, like, dislike, link } = music_yt2.data.result
                 const cpt2 = `   *VIDEO DI TEMUKAN* ✨\n
 💠 Title✨: ${title}
 💠 Upload✨: ${uploader}
@@ -1069,7 +1068,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 💠 Dislike✨ : ${dislike}
    
    *VIDEO SEDANG DI KIRIM*`
-                await erdwpe.sendFileFromUrl(self, thumbnail, 'ytmp.jpg', `${cpt2}`, id)
+                await erdwpe.reply(self, `${cpt2}`, id)
                 const pree2 = await fetch(link[0].link);
                 const buffer = await pree2.buffer();
                 await fs.writeFile('./temp/video/video.mp4', buffer)
