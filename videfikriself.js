@@ -1030,7 +1030,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             break 
             case 'pptiktok':
                const pptt = body.slice(10)
-               erdwpe.sendFileFromUrl(self, (`https://api.lolhuman.xyz/api/pptiktok/${pptt}?apikey={lolhuman}, 'pp.jpeg' , '©ERDWPE BOT', '©ERDWPE BOT', id)
+               erdwpe.sendFileFromUrl(self, `https://api.lolhuman.xyz/api/pptiktok/${pptt}?apikey={lolhuman}`, 'pp.jpeg' , '©ERDWPE BOT', '©ERDWPE BOT', id)
               break
 
          case 'ytmp32':
