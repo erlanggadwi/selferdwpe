@@ -842,8 +842,8 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 console.log('Success creating image!')
             break
             case 'trash':
+                if (!isGroupMsg) return await erdwpe.reply(self, 'fitur ini hanya bisa digunakan di grup', id)
                 if (!query.includes('@')) return await erdwpe.reply(self, 'contoh #trash @tagmember', id)
-                if (!isGroupMsg) return await erdwpe.reply(self, 'fitur ini hanya dapat digunakan di grup', id)
                 try {
                     await erdwpe.reply(self, 'tunggu sebentar', id)
                     for (let i = 0; i < mentionedJidList.length; i++) {
@@ -866,8 +866,8 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 }
             break
             case 'hitler':
-                if (!query.includes('@')) return await erdwpe.reply(self, 'contoh #hitler @tagmember', id)
                 if (!isGroupMsg) return await erdwpe.reply(self, 'fitur ini hanya bisa digunakan di grup', id)
+                if (!query.includes('@')) return await erdwpe.reply(self, 'contoh #hitler @tagmember', id)
                 try {
                     await erdwpe.reply(self, 'tunggu sebentar..', id)
                     for (let i = 0; i < mentionedJidList.length; i++) {
@@ -1004,22 +1004,22 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
             console.log('Sukses Mengirim')
             break   
-               /*case 'ytmp3':
+               case 'ytmp3':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const ytmp31 = await axios.get(`https://api.lolhuman.xyz/api/ytaudio?apikey=${lolhuman}&url=${url}`)
-            const ytmp312 = ytmp31.data.result
+            const ytmp312 = ytmp31.data.result.link[4]
             //const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp312.link.link[0}`, '', id)
+                await erdwpe.sendFileFromUrl(self, `${ytmp312.link`, '', id)
             break     
             case 'ytmp4':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp41 = await axios.get(`https://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
+            const ytmp41 = await axios.get(`https://videfikri.com/api/ytmp4/?url=${url}`)
             const ytmp412 = ytmp41.data.result
-            const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.link.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp412.link.link}`, '', ytmp4123, id)
-            break*/   
+            const ytmp4123 = `➸ *Judul*: ${ytmp412.judul}`
+                await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, '', ytmp4123, id)
+            break
              case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
@@ -1029,7 +1029,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const play6 = `➸ *Judul*: ${play5.title}`
                 await erdwpe.sendFileFromUrl(self, `${play5.audio}`, '', play6, id)
             break 
-         case 'ytmp3':
+         case 'ytmp32':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
                 const music_yt = await axios.get(`http://lolhuman.herokuapp.com/api/ytaudio?apikey=${lolhuman}&url=${url}`)
@@ -1053,7 +1053,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 erdwpe.sendFileFromUrl(self, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
                 }
             break
-            case 'ytmp4':
+            case 'ytmp42':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
                 const music_yt2 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
