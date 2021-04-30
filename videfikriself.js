@@ -32,7 +32,6 @@ let {
     barbarkey,
     melodickey,
     vhtearkey,
-    tobzkey,
     restartState: isRestart,
     mtc: mtcState
     } = setting
