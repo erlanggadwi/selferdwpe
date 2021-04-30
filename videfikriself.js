@@ -1007,16 +1007,16 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                case 'ytmp3':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp31 = await axios.get(`http://api.lolhuman.xyz/api/ytaudio2?apikey=${lolhuman}&url=${url}`)
-            const ytmp312 = ytmp31.data.result
-            const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp312.link}`, '', ytmp3123, id)
+            const ytmp31 = await axios.get(`https://api.lolhuman.xyz/api/ytaudio?apikey=${lolhuman}&url=${url}`)
+            const ytmp312 = ytmp31.data.result.link[0]
+            //const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
+                await erdwpe.sendFileFromUrl(self, `${ytmp312.link}`, '', id)
             break     
             case 'ytmp4':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp41 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo2?apikey=${lolhuman}&url=${url}`)
-            const ytmp412 = ytmp41.data.result
+            const ytmp41 = await axios.get(`https://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
+            const ytmp412 = ytmp41.data.result.link
             const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.size}`
                 await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, '', ytmp4123, id)
             break   
