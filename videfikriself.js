@@ -262,12 +262,11 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 })
         break
             case 'cersex':
-            erdwpe.reply(self, '*FITUR INI DIMATIKAN OLEH OWNER*', id)
-                /*const cersex3 = await fetch('http://docs-jojo.herokuapp.com/api/cersex')
+                const cersex3 = await fetch('http://docs-jojo.herokuapp.com/api/cersex')
                 const cersex2 = await cersex3.json()
                    const { judul, cersex } = await cersex2.result
                     const mmkkgsk =`➸ *Judul* : ${judul}\n\n➸ *Cerita* : ${cersex}`
-                     erdwpe.reply(self, mmkkgsk, id)*/
+                     erdwpe.reply(self, mmkkgsk, id)
                    break
                       case 'ceritahoror':
                 const lrando2 = await axios.get(`http://api.lolhuman.xyz/api/ceritahoror?apikey=${lolhuman}`)
@@ -285,12 +284,11 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                        })
                break
                       case 'nhder':
-             erdwpe.reply(self, '*FITUR INI DIMATIKAN OLEH OWNER*', id)
-            /*if (args.length == 0) return erdwpe.reply(self, `untuk menggunakannya ketik #nhder kodenuklirmu`, id)
+            if (args.length == 0) return erdwpe.reply(self, `untuk menggunakannya ketik #nhder kodenuklirmu`, id)
          const nhderr = body.slice(7)
          erdwpe.reply(self,'Wait.. Sedang di proses',id)
          const nhder = await axios.get(`http://api.lolhuman.xyz/api/nhentaipdf/${nhderr}?apikey=${lolhuman}`)
-         erdwpe.sendFileFromUrl(self, nhder.data.result, id)*/
+         erdwpe.sendFileFromUrl(self, nhder.data.result, id)
             break 
                  case 'loli':
             erdwpe.sendFileFromUrl(self, 'http://api.lolhuman.xyz/api/random/loli?apikey=erdwpehub28', 'nih loli nya tuan', 'nih loli nya tuan', id)
