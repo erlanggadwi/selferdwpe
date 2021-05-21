@@ -616,7 +616,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 console.log('OTW NGAB')
             break
 
-               case 'ttp':
+               /*case 'ttp':
                 try
                 {
                     const string = body.toLowerCase().includes('#ttp') ? body.slice(5) : body.slice(5)
@@ -656,6 +656,12 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 {
                     console.log(error)
                 }
+            break*/
+            case 'ttp':
+            if (!query) return await erdwpe.reply(self, 'untuk menggunakan command ini ketik #ttp xrlangga', id)
+            const textttp = body.slice(5)
+                   erdwpe.sendStickerfromUrl(self, `https://api.lolhuman.xyz/api/ttp?apikey=${lolhuman}&text=${textttp}`, { author: 'xrlangga', pack: '©ERDWPE BOT' })
+                console.log('OTW NGAB')
             break
               case 'findsticker':
             case 'stikerwa':
@@ -1376,9 +1382,9 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                    case 'unblock':
             if (!isOwner) return erdwpe.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
                 let unblock = body.slice(9)
-                await erdwpe.contactUnblock(from,`${unblock}@c.us`).then((a)=>{
+                await erdwpe.contactUnblock(from, `${unblock}@c.us`).then((a)=>{
                     console.log(a)
-                    erdwpe.reply(from, `Success unblok ${args[1]}!`, id)
+                    erdwpe.reply(from, `Success unblok!`, id)
                 })
             break
             case 'mutegrup':
@@ -1424,7 +1430,7 @@ break
                     if (isDetectorOn) return await erdwpe.reply(self, `Gagal, Anti group-link sudah pernah di nyalakan sebelumnya`, id)
                     _antilink.push(groupId)
                     fs.writeFileSync('./database/antilink.json', JSON.stringify(_antilink))
-                    await erdwpe.reply(self, `*...:* *ANTI GROUP LINK*\n\nPerhatian untuk member grup ${(name || formattedTitle)}\nGroup ini telah dipasang anti-link, jika anda mengirim link group lain, maka akan otomatis terkick!`, id)
+                    await erdwpe.reply(self, `*...:* *ANTI GROUP LINK*\n\nPerhatian untuk member grup\nGroup ini telah dipasang anti-link, jika anda mengirim link group lain, maka akan otomatis terkick!`, id)
                 } else if (ar[0] === 'off') {
                     _antilink.splice(groupId, 1)
                     fs.writeFileSync('./database/antilink.json', JSON.stringify(_antilink))
@@ -1441,7 +1447,7 @@ break
                     if (isAntiVirtextOn) return await erdwpe.reply(self, `Gagal, Anti Virtext sudah pernah dinyalakan sebelumnya`, id)
                     _antivirtext.push(groupId)
                     fs.writeFileSync('./database/antivirtext.json', JSON.stringify(_antivirtext))
-                    await erdwpe.reply(self, `*...:* *ANTI VIRTEXT*\n\nPerhatian untuk member grup ${(name || formattedTitle)}\nGroup ini telah dipasang anti virtext, jika anda mengirim virtext, maka akan otomatis terkick!`, id)
+                    await erdwpe.reply(self, `*...:* *ANTI VIRTEXT*\n\nPerhatian untuk member grup\nGroup ini telah dipasang anti virtext, jika anda mengirim virtext, maka akan otomatis terkick!`, id)
                 } else if (ar[0] === 'off') {
                     _antivirtext.splice(groupId, 1)
                     fs.writeFileSync('./database/antivirtext.json', JSON.stringify(_antivirtext))
