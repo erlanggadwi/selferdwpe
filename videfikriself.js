@@ -995,8 +995,8 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             case 'ttnowm2':
             if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
             await erdwpe.reply(self, 'tunggu sebentar', id)
-            const tiktok = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${url}`)
-            const tikto1 = tiktok.data.result
+            const tiktok2 = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${url}`)
+            const tikto1 = tiktok2.data.result
             const rtiktok = `➸ *username*: ${tikto1.author.username}\n➸ *judul*: ${tikto1.title}\n➸ *description*: ${tikto1.description}`
             await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
             console.log('Sukses Mengirim')
