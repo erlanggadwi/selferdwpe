@@ -95,9 +95,13 @@ const uploadImages = (buffData, fileName) => {
         })
     })
 }
+const sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 module.exports = {
     fetchJson,
+    sleep,
     fetchText,
     fetchBase64,
     fetchBuffer,
