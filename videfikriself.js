@@ -1376,7 +1376,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                    case 'unblock':
             if (!isOwner) return erdwpe.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
                 let unblock = body.slice(9)
-                await erdwpe.contactUnblock(unblock).then((a)=>{
+                await erdwpe.contactUnblock(from,`${unblock}@c.us`).then((a)=>{
                     console.log(a)
                     erdwpe.reply(from, `Success unblok ${args[1]}!`, id)
                 })
