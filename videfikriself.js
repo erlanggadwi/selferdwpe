@@ -991,14 +991,22 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await erdwpe.sendFileFromUrl(self, `${ig1.media}`, '', rig, id)
             break   
 
-   case 'tiktoknowm':
-            case 'ttnowm':
+   case 'tiktoknowm2':
+            case 'ttnowm2':
             if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
             await erdwpe.reply(self, 'tunggu sebentar', id)
             const tiktok = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${url}`)
             const tikto1 = tiktok.data.result
             const rtiktok = `➸ *username*: ${tikto1.author.username}\n➸ *judul*: ${tikto1.title}\n➸ *description*: ${tikto1.description}`
             await erdwpe.sendFileFromUrl(self, `${tikto1.link}`, '', rtiktok, id)
+            console.log('Sukses Mengirim')
+            break   
+                   case 'tiktoknowm':
+            case 'ttnowm':
+            if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
+            await erdwpe.reply(self, 'tunggu sebentar', id)
+            const tiktok = await axios.get(`https://api.lolhuman.xyz/api/tiktok3?apikey=${lolhuman}&url=${url}`)
+            await erdwpe.sendFileFromUrl(self, tiktok.data.result, '', 'nih ngab', id)
             console.log('Sukses Mengirim')
             break   
                case 'ytmp3':
@@ -1111,8 +1119,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             break
            case 'instastory': // By: VideFrelan
             case 'igstory':
-                erdwpe.reply(self, '_fitur ini sedang dalam perbaikan_', id)
-                /*if (!query) return erdwpe.reply(self, 'cara menggunakannya #igstory @usernameignya', id)
+                if (!query) return erdwpe.reply(self, 'cara menggunakannya #igstory usernameignya', id)
                 await erdwpe.reply(self, 'tunggu sebentar', id)
                 downloader.its(query)
                     .then(async ({ result }) => {
@@ -1121,7 +1128,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                             await erdwpe.sendFileFromUrl(self, urlDownload, '', 'By: ERDWPE', id)
                             console.log('Success sending IG Story!')
                         }
-                    })*/
+                    })
             break
                 /* END OF DOWNLOADER */
 
