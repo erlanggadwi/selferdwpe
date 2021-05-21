@@ -124,7 +124,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 
         //ANTI-GROUP LINK DETECTOR
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
-            if (chats.match(new RegExp(/(https:\/\/chat.whatsapp.com)/gi))) {
+            if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
                 console.log(color('[KICK]', 'red'), color('Anti Group-Link detector.', 'aqua'))
                 await erdwpe.reply(self, msg.linkDetected(), id)
                 await erdwpe.removeParticipant(groupId, sender.id)
@@ -146,7 +146,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const preproccessocr1 = await axios.get(`http://api.lolhuman.xyz/api/nsfwcheck?apikey=${lolhuman}&img=${getUrl}`)
             const nsfw = preproccessocr1.data.result
             const nsfw3 = nsfw.replace('%', '')
-            if (nsfw3 >= 50.0){
+            if (nsfw3 >= 35.0){
                 if (isGroupAdmins){
                     await erdwpe.reply(self, 'Admin Baka Untung Kau Admin Jadi Tidak Saya Kick Ingat Yah Min Ngak Boleh Gitu💕 HARAM DESU', id)
                 } else {
@@ -1372,6 +1372,14 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 await sleep(3000)
                 await erdwpe.addParticipant(self,`${mentionedJidList}`)
             } 
+            break
+                   case 'unblock':
+            if (!isOwner) return erdwpe.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
+                let unblock = body.slice(9)
+                await erdwpe.contactUnblock(unblock).then((a)=>{
+                    console.log(a)
+                    erdwpe.reply(from, `Success unblok ${args[1]}!`, id)
+                })
             break
             case 'mutegrup':
             if (!isGroupMsg) return erdwpe.reply(self, 'Maaf, perintah ini hanya dapat dipakai didalam grup!', id)
