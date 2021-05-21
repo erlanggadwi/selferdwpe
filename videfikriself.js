@@ -126,7 +126,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
         if (isGroupMsg && !isGroupAdmins && isBotGroupAdmins && isDetectorOn && !isOwner) {
             if (chats.match(/(https:\/\/chat.whatsapp.com)/gi)) {
                 console.log(color('[KICK]', 'red'), color('Anti Group-Link detector.', 'aqua'))
-                await erdwpe.reply(self, msg.linkDetected(), id)
+                await erdwpe.reply(self, msg3.linkDetected(), id)
                 await erdwpe.removeParticipant(groupId, sender.id)
             }
         }
@@ -146,7 +146,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             const preproccessocr1 = await axios.get(`http://api.lolhuman.xyz/api/nsfwcheck?apikey=${lolhuman}&img=${getUrl}`)
             const nsfw = preproccessocr1.data.result
             const nsfw3 = nsfw.replace('%', '')
-            if (nsfw3 >= 35.0){
+            if (nsfw3 >= 40.0){
                 if (isGroupAdmins){
                     await erdwpe.reply(self, 'Admin Baka Untung Kau Admin Jadi Tidak Saya Kick Ingat Yah Min Ngak Boleh Gitu💕 HARAM DESU', id)
                 } else {
@@ -1417,9 +1417,9 @@ for(let idk of chatz){ var cvk = await erdwpe.getChatById(idk)
 erdwpe.reply('Broadcast Success!') } 
 break
             case 'antilink':
-                if (!isGroupMsg) return await erdwpe.reply(self, msg.groupOnly(), id)
-                if (!isGroupAdmins) return await erdwpe.reply(self, msg.adminOnly(), id)
-                if (!isBotGroupAdmins) return await erdwpe.reply(self, msg.botNotAdmin(), id)
+                if (!isGroupMsg) return await erdwpe.reply(self, msg3.groupOnly(), id)
+                if (!isGroupAdmins) return await erdwpe.reply(self, msg3.adminOnly(), id)
+                if (!isBotGroupAdmins) return await erdwpe.reply(self, msg3.botNotAdmin(), id)
                 if (ar[0] === 'on') {
                     if (isDetectorOn) return await erdwpe.reply(self, `Gagal, Anti group-link sudah pernah di nyalakan sebelumnya`, id)
                     _antilink.push(groupId)
@@ -1434,9 +1434,9 @@ break
                 }
             break
             case 'antivirtext':
-                if (!isGroupMsg) return await erdwpe.reply(self, msg.groupOnly(), id)
-                if (!isGroupAdmins) return await erdwpe.reply(self, msg.adminOnly(), id)
-                if (!isBotGroupAdmins) return await erdwpe.reply(self, msg.botNotAdmin(), id)
+                if (!isGroupMsg) return await erdwpe.reply(self, msg3.groupOnly(), id)
+                if (!isGroupAdmins) return await erdwpe.reply(self, msg3.adminOnly(), id)
+                if (!isBotGroupAdmins) return await erdwpe.reply(self, msg3.botNotAdmin(), id)
                 if (ar[0] === 'on') {
                     if (isAntiVirtextOn) return await erdwpe.reply(self, `Gagal, Anti Virtext sudah pernah dinyalakan sebelumnya`, id)
                     _antivirtext.push(groupId)
