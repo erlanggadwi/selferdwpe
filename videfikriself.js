@@ -399,6 +399,18 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(self, 'format salah', id)
                 }
             break
+            case 'upscale':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const datasca = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fotosca = await uploadImages(datasca, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(from, 'tunggu sebentar', id)
+                    await erdwpe.sendFileFromUrl(from, `https://api.lolhuman.xyz/api/upscale?apikey=${lolhuman}&img=${fotosca}`, 'dah jadi', 'nih ngab', id)
+                    console.log('Success sending upscale image!')
+                } else {
+                    await erdwpe.reply(from, '*mana gambarnya ngab*', id)
+                }
+            break
              case 'memesticker':
                 if (!query.includes('|')) return await erdwpe.reply(self, `*mana gambar nya ngab*\n\nUntuk membuat stickermeme ${prefix}memesticker meng | gokil`, id)
     if ((isMedia || isQuotedImage) && args.length >= 0) {
@@ -616,7 +628,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 console.log('OTW NGAB')
             break
 
-               /*case 'ttp':
+               case 'ttp':
                 try
                 {
                     const string = body.toLowerCase().includes('#ttp') ? body.slice(5) : body.slice(5)
@@ -655,32 +667,6 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 }catch(error)
                 {
                     console.log(error)
-                }
-            break*/
-            case 'ttp':
-            if (!query) return await erdwpe.reply(self, 'untuk menggunakan command ini ketik #ttp xrlangga', id)
-            const textttp = body.slice(5)
-                   erdwpe.sendStickerfromUrl(self, `https://api.lolhuman.xyz/api/ttp?apikey=${lolhuman}&text=${textttp}`, { author: 'xrlangga', pack: '©ERDWPE BOT' })
-                console.log('OTW NGAB')
-            break
-              case 'findsticker':
-            case 'stikerwa':
-                if (!isGroupMsg) return erdwpe.reply(self, 'Maaf, perintah ini hanya dapat dipakai didalam grup!', id)
-                if (!isGroupAdmins) return erdwpe.reply(self, 'Gagal, perintah ini hanya dapat digunakan oleh admin grup!', id)
-                if (!query) return await erdwpe.reply(self, 'untuk menggunakan command ini ketik #findsticker pentol', id)
-                await erdwpe.reply(self, 'tunggu sebentar', id)
-                try {
-                    downloader.sticker(query)
-                        .then(async ({ result }) => {
-                            if (result.response !== 200) return await erdwpe.reply(self, 'Not found!', id)
-                            for (let i = 0; i < result.data.length; i++) {
-                                await erdwpe.sendStickerfromUrl(self, result.data[i], { author: 'xrlangga', pack: '©ERDWPE BOT' })
-                            }
-                            console.log('Success sending sticker!')
-                        })
-                } catch (err) {
-                    console.error(err)
-                    await erdwpe.reply(self, `Error!\n\n${err}`, id)
                 }
             break
               case 'triggered':
@@ -927,41 +913,6 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(self, `Untuk mengconvert GIF/Video menjadi stikergif silahkan upload video/gif dengan caption ${prefix}stikergif`, id)
                 }
             break
-            case 'sgifround':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (isMedia && type === 'video' || mimetype === 'image/gif') {
-                    //await erdwpe.reply(self, msg3.wait(), id)
-                    try {
-                        const mediaData = await decryptMedia(message, uaOverride)
-                        const videoBase64 = `data:${mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true, crop: false, keepScale: true }, { author: 'xrlangga', pack: '©ERDWPE BOT' })
-                            .then(async () => {
-                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                
-                            })
-                    } catch (err) {
-                        console.error(err)
-                        await erdwpe.reply(self, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
-                    }
-                } else if (isQuotedGif || isQuotedVideo) {
-                    //await erdwpe.reply(self, msg3.wait(), id)
-                    try {
-                        const mediaData = await decryptMedia(quotedMsg, uaOverride)
-                        const videoBase64 = `data:${quotedMsg.mimetype};base64,${mediaData.toString('base64')}`
-                        await erdwpe.sendMp4AsSticker(self, videoBase64, { fps: 10, startTime: `00:00:00.0`, endTime : `00:00:06.0`, loop: 0, circle: true}, { author: 'xrlangga', pack: '©ERDWPE BOT' })
-                            .then(async () => {
-                                console.log(`Sticker processed for ${processTime(t, moment())} seconds`)
-                                
-                            })
-                    } catch (err) {
-                        console.error(err)
-                        await erdwpe.reply(self, `Ukuran video terlalu besar\nMaksimal size adalah 1MB!`, id)
-                    }
-                } else {
-                    await erdwpe.reply(self, `Untuk mengconvert GIF/Video menjadi stikergif silahkan upload video/gif dengan caption ${prefix}stikergif`, id)
-                }
-            break
-
              case 'getpic':
                 if (mentionedJidList.length !== 0) {
                     const userPic = await erdwpe.getProfilePicFromServer(mentionedJidList[0])
@@ -1123,19 +1074,15 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     })
                 
             break
-           case 'instastory': // By: VideFrelan
             case 'igstory':
-                if (!query) return erdwpe.reply(self, 'cara menggunakannya #igstory usernameignya', id)
-                await erdwpe.reply(self, 'tunggu sebentar', id)
-                downloader.its(query)
-                    .then(async ({ result }) => {
-                        for (let i = 0; i < result.story.length; i++) {
-                            const { urlDownload } = result.story[i]
-                            await erdwpe.sendFileFromUrl(self, urlDownload, '', 'By: ERDWPE', id)
-                            console.log('Success sending IG Story!')
-                        }
-                    })
-            break
+                const story = body.slice(9)
+                await erdwpe.reply(self, '_tunggu sebentar_', id)
+                const igst = await axios.get(`https://api.lolhuman.xyz/api/igstory/${story}?apikey=${lolhuman}`)
+                for (let i = 0; i < igst.data.result.length; i++) {
+                await erdwpe.sendFileFromUrl(self, igst.data.result[i], '', '©ERDWPE BOT', id)
+                console.log('Sukses Mengirim')
+                }
+                break 
                 /* END OF DOWNLOADER */
 
                 /* STALKER */
@@ -1188,6 +1135,14 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 const sholat3 = `➸ *wilayah*: ${sholat2.wilayah}\n➸ *tanggal*: ${sholat2.tanggal}\n➸ *sahur*: ${sholat2.sahur}\n➸ *imsak*: ${sholat2.imsak}\n➸ *subuh*: ${sholat2.subuh}\n➸ *dhuha*: ${sholat2.dhuha}\n➸ *dzuhur*: ${sholat2.dzuhur}\n➸ *ashar*: ${sholat2.ashar}\n➸ *maghrib*: ${sholat2.maghrib}\n➸ *isya*: ${sholat2.isya}`
                 await erdwpe.sendFileFromUrl(self, `https://assets.kompasiana.com/items/album/2018/04/25/2018-04-25-masjid-5ae06670cbe52329bd520502.jpg`, 'narto.jpg', sholat3, id)
                    break
+                   case 'tiktokstalk':
+                    if (args.length == 0) return erdwpe.reply(self, `Untuk mencari jadwal sholat\n\nPenggunaan: #jadwalsholat surabaya`, id)
+                    const ttstalk = body.slice(13)
+                    const ttstalk1 = await axios.get(`https://api.lolhuman.xyz/api/stalktiktok/${ttstalk}?apikey=${lolhuman}`)
+                    const ttstalk2 = ttstalk1.data.result
+                    const ttstalk3 = `➸ *Username*: ${ttstalk2.username}\n➸ *Nickname*: ${ttstalk2.nickname}\n➸ *Bio*: ${ttstalk2.bio}\n➸ *Followers*: ${ttstalk2.followers}\n➸ *Followings*: ${ttstalk2.followings}\n➸ *Likes*: ${ttstalk2.likes}\n➸ *Video*: ${ttstalk2.video}`
+                    await erdwpe.sendFileFromUrl(self, `${ttstalk2.user_picture}`, 'narto.jpg', ttstalk3, id)
+                       break
             /* END OF STALKER */
 
             /* FUN MENU */
