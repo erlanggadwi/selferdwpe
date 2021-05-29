@@ -34,7 +34,7 @@ exports.menu = (pushname) => {
   ❏ Nama: *${pushname}*
   
 ◪ 𝗠𝗘𝗡𝗨
-- _${prefix}sticker
+- _${prefix}sticker_
 - _${prefix}stickergif_
 - _${prefix}sgifwm_
 - _${prefix}stickerround_
@@ -57,7 +57,7 @@ exports.menu = (pushname) => {
 - _${prefix}pptiktok_ [username]
 - _${prefix}igstory_ [username]
 - _${prefix}nhder_
-- _${prefix}upscale
+- _${prefix}upscale_
 - _${prefix}twtprof_
 - _${prefix}github_
 - _${prefix}email_
@@ -88,7 +88,9 @@ exports.menu = (pushname) => {
 - _${prefix}igstalk_ [username]
 - _${prefix}tiktokstalk_ [username]
 
-     
+_follow instagram bot untuk mengetahui update_
+❏ https://www.instagram.com/erdwpebot/ ❏    
+
 _made with ❤ from SBY_
 `
 }
