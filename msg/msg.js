@@ -34,6 +34,7 @@ exports.menu = (pushname) => {
   ❏ Nama: *${pushname}*
   
 ◪ 𝗠𝗘𝗡𝗨
+- _${prefix}sticker
 - _${prefix}stickergif_
 - _${prefix}sgifwm_
 - _${prefix}stickerround_
@@ -53,10 +54,11 @@ exports.menu = (pushname) => {
 - _${prefix}bass_
 - _${prefix}quotemaker_
 - _${prefix}igdl_ [link ig]
+- _${prefix}pptiktok_ [username]
 - _${prefix}igstory_ [username]
 - _${prefix}nhder_
+- _${prefix}upscale
 - _${prefix}twtprof_
-- _${prefix}findsticker_
 - _${prefix}github_
 - _${prefix}email_
 - _${prefix}call_
@@ -84,6 +86,8 @@ exports.menu = (pushname) => {
 - _${prefix}wasted_
 - _${prefix}gun_
 - _${prefix}igstalk_ [username]
+- _${prefix}tiktokstalk_ [username]
+
      
 _made with ❤ from SBY_
 `
