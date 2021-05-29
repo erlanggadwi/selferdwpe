@@ -30,6 +30,7 @@ exports.menu = (pushname) => {
 
 ◪ 𝗜𝗡𝗙𝗢
   ❏ Donasi:  https://saweria.co/erdwpebot
+  ❏ Instagram: https://www.instagram.com/erdwpebot/
   ❏ Prefix: 「  ${prefix} 」
   ❏ Nama: *${pushname}*
   
@@ -87,9 +88,7 @@ exports.menu = (pushname) => {
 - _${prefix}gun_
 - _${prefix}igstalk_ [username]
 - _${prefix}tiktokstalk_ [username]
-
-_follow instagram bot untuk mengetahui update_
-❏ https://www.instagram.com/erdwpebot/ ❏    
+ 
 
 _made with ❤ from SBY_
 `
