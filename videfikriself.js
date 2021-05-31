@@ -252,6 +252,11 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                 const databucin = await axios.get(`http://api.lolhuman.xyz/api/random/bucin?apikey=${lolhuman}`)
                 await erdwpe.reply(self, databucin.data.result, id)
             break
+                    case 'pantun':
+                //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
+                const datapantun = await axios.get(`https://api.zeks.xyz/api/pantun?apikey=apivinz&=`)
+                await erdwpe.reply(self, datapantun.data.result.pantun, id)
+            break
                 case 'cerpen': // By Kris
             //await erdwpe.reply(self, ind.wait(), id)
             axios.get('https://masgi.herokuapp.com/api/cerpen')
@@ -368,7 +373,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             break
                 case "latintoaksara":
                 const hc = require('hanacaraka');
-                const javanese = hc.encode(body.slice(10))
+                const javanese = hc.encode(body.slice(15))
                 erdwpe.reply(self, javanese, id)
 break
 case "aksaratolatin":
