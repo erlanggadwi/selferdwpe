@@ -366,6 +366,16 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
                     await erdwpe.reply(self, 'format salah', id)
                 }
             break
+                case "latintoaksara":
+                const hc = require('hanacaraka');
+                const javanese = hc.encode(body.slice(10))
+                erdwpe.reply(self, javanese, id)
+break
+case "aksaratolatin":
+    const hc2 = require('hanacaraka');
+    const latin = hc2.decode(body.slice(15))
+    erdwpe.reply(self, latin, id)
+break
                        case 'bass':
                 if (isMedia && isAudio || isQuotedAudio || isVoice || isQuotedVoice) {
                     if (args.length !== 1) return await erdwpe.reply(self, 'reply file audio dengan command #bass 40', id)
