@@ -1472,10 +1472,15 @@ break
                 await erdwpe.reply(self, msg3.menuAdmin(), id)
                 }
             break
+                case 'owner':
+        case 'creator':
+            tobz.sendContact(chatId, `6281392641570@c.us`)
+            tobz.reply(from, 'Itu nomor Owner', id)
+            break
             case 'menu':
             case 'help':
             //git commit -m "initial commit" --allow-empty
-                await erdwpe.sendLinkWithAutoPreview(self, msg3.menu(pushname))
+                await erdwpe.reply(self, msg3.menu(pushname), id)
                 .then(() => ((isGroupMsg) && (isGroupAdmins)) ? erdwpe.sendText(self, `Menu Admin Grup: *${prefix}menuadmin*`) : null)
             break
 
