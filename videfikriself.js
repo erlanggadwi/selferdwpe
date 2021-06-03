@@ -1356,13 +1356,15 @@ break
                 await erdwpe.addParticipant(self,`${mentionedJidList}`)
             } 
             break
-                   case 'unblock':
-            if (!isOwner) return erdwpe.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner Elaina!', id)
-                let unblock = body.slice(9)
-                await erdwpe.contactUnblock(from, `${unblock}@c.us`).then((a)=>{
+                case 'unblock':
+            if (!isOwner) return erdwpe.reply(from, 'Perintah ini hanya bisa di gunakan oleh Owner!', id)
+            for (let i = 0; i < mentionedJidList.length; i++) {
+                let unblock = `${mentionedJidList[i]}`
+                await erdwpe.contactUnblock(unblock).then((a)=>{
                     console.log(a)
-                    erdwpe.reply(from, `Success unblok!`, id)
+                    erdwpe.reply(from, `Success unblok ${args[1]}!`, id)
                 })
+            } 
             break
             case 'mutegrup':
             if (!isGroupMsg) return erdwpe.reply(self, 'Maaf, perintah ini hanya dapat dipakai didalam grup!', id)
@@ -1474,8 +1476,8 @@ break
             break
                 case 'owner':
         case 'creator':
-            tobz.sendContact(chatId, `6281392641570@c.us`)
-            tobz.reply(from, 'Itu nomor Owner', id)
+            erdwpe.sendContact(chatId, `6281392641570@c.us`)
+            erdwpe.reply(from, 'Mau apa kak cari nomer owner', id)
             break
             case 'menu':
             case 'help':
