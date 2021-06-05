@@ -237,20 +237,24 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
             /* RANDOM WORDS */
             case 'fakta':
                 //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
-                const datafakta = await axios.get(`https://videfikri.com/api/fakta/`)
-                const fakta = datafakta.data.result
-                await erdwpe.reply(self, `${fakta.fakta}`, id)
+                const datafakta = await axios.get(`https://api.lolhuman.xyz/api/random/faktaunik?apikey=${lolhuman}`)
+                await erdwpe.reply(self, datafakta.data.result, id)
             break
             case 'quotes':
                 //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
-                const dataquotes = await axios.get(`https://videfikri.com/api/randomquotes/`)
+                const dataquotes = await axios.get(`https://api.lolhuman.xyz/api/random/quotes?apikey=${lolhuman}`)
                 const quotes = dataquotes.data.result
-                await erdwpe.reply(self, `➸ *Author*: ${quotes.author}\n➸ *Quotes*: ${quotes.quotes}`, id)
+                await erdwpe.reply(self, `➸ *Author*: ${quotes.by}\n➸ *Quotes*: ${quotes.quote}`, id)
             break
                  case 'quotes2':
                 //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
                 const dataquotes2 = await axios.get(`http://docs-jojo.herokuapp.com/api/katacinta`)
                 await erdwpe.reply(self, dataquotes2.data.result, id)
+            break
+                case 'motivasi':
+                //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
+                const datamotivasi = await axios.get(`https://api.lolhuman.xyz/api/random/katabijak?apikey=${lolhuman}`)
+                await erdwpe.reply(self, datamotivasi.data.result, id)
             break
                  case 'bucin':
                 //if (!isRegistered) return await erdwpe.reply(self, msg3.notRegistered(pushname), id)
@@ -746,7 +750,7 @@ break
                     const datagun = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotogun = await uploadImages(datagun, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://videfikri.com/api/textmaker/crossgun/?urlgbr=${fotogun}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=cross-gun&text=${fotogun}`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -758,7 +762,31 @@ break
                     const datagtav = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotogtav = await uploadImages(datagtav, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://videfikri.com/api/textmaker/gtavposter/?urlgbr=${fotogtav}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=gtav&text=${fotogtav}`, 'dah jadi', 'nih ngab', id)
+                    console.log('Success sending Wasted image!')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            break
+                    case 'lines':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const datalines = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fotolines = await uploadImages(datalines, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(self, 'tunggu sebentar', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=lines-ret&text=${fotolines}`, 'dah jadi', 'nih ngab', id)
+                    console.log('Success sending Wasted image!')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            break
+                  case 'typographic':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const datatypographic = await decryptMedia(encryptMediaWt, uaOverride)
+                    const fototypographic = await uploadImages(datatypographic, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(self, 'tunggu sebentar', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=typographic-two&text=${fototypographic}`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -791,7 +819,7 @@ break
                     const datapencil = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotopencil = await uploadImages(datapencil, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://videfikri.com/api/textmaker/pencildrawing/?urlgbr=${fotopencil}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=pencil-two&text=${fotopencil}`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -816,7 +844,7 @@ break
                     const datapencil2 = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotopencil2 = await uploadImages(datapencil2, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://videfikri.com/api/textmaker/pencil/?urlgbr=${fotopencil2}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=pencil&text=${fotopencil2}`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
