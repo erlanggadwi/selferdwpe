@@ -987,7 +987,7 @@ break
             /* END OF STICKER MAKER */
 
             /* DOWNLOADER */
-                case 'igdl': // by: VideFrelan
+          case 'igdl': // by: VideFrelan
             case 'instadl':
                 if (!isUrl(url) && !url.includes('instagram.com')) return await erdwpe.reply(self, 'cara menggunakannya #igdl url image/video nya', id)
                 await erdwpe.reply(self, 'tunggu sebentar', id)
@@ -995,8 +995,10 @@ break
             const ig = await axios.get(`http://api.lolhuman.xyz/api/instagram2?apikey=${lolhuman}&url=${url}`)
             const ig1 = ig.data.result
             const rig = `➸ *username*: ${ig1.account.username}\n➸ *nama*: ${ig1.account.full_name}`
-                await erdwpe.sendFileFromUrl(self, `${ig1.media}`, '', rig, id)
-            break   
+            for (let i = 0; i < ig.data.result.media.length; i++) {
+                await erdwpe.sendFileFromUrl(self, `${ig1.media[i]}`, '', rig, id)
+            }
+            break 
 
    case 'tiktoknowm2':
             case 'ttnowm2':
