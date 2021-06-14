@@ -768,6 +768,44 @@ break
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
                 }
             break
+                 case 'unblock': { //menambahkan nomor ke database 
+                if (!isOwner) return erdwpe.reply(from, 'Maaf, hanya admin bot yang dapat unblok user', id)
+                if (!args.length >= 1) return erdwpe.reply(from, 'Nomornya mana kak?')  
+                const text = body.slice(9)
+                let bloknum = text.replace(/[-\s+]/g,'').replace('@','') + '@c.us'
+                const blockedlist = await erdwpe.getBlockedIds()
+                var cek = blockedlist.includes(bloknum);
+                if(!cek){
+                    return erdwpe.reply(from, 'Nomor ini sudah ter unblock', id) //if number already exists on database
+                } else {
+                    const mentah = await erdwpe.checkNumberStatus(bloknum) //VALIDATE WHATSAPP NUMBER
+                    const hasil = mentah.canReceiveMessage ? `Unblocked success\nTotal Nomor terblokir sekarang : *${blockedlist.length}*` : false
+                    if (!hasil) return erdwpe.reply(from, 'Nomor WhatsApp tidak valid [ Tidak terdaftar di WhatsApp ]', id); {
+                        await erdwpe.contactUnblock(mentah.id._serialized)
+                        erdwpe.sendText(from, hasil)
+                    }
+                }
+                }
+                break  
+                case 'block': { //menambahkan nomor ke database 
+                    if (!isOwner) return erdwpe.reply(from, 'Maaf, hanya admin bot yang dapat memblokir user', id)
+                    if (!args.length >= 1) return erdwpe.reply(from, 'Nomornya mana kak?\ncontoh: #daftar 6285226236155')  
+                    const text = body.slice(7)
+                    let bloknum = text.replace(/[-\s+]/g,'').replace('@','') + '@c.us'
+                    const blockedlist = await erdwpe.getBlockedIds()
+                    var cek = blockedlist.includes(bloknum);
+                    if(cek){
+                        return erdwpe.reply(from, 'Nomor ini sudah terblokir', id) //if number already exists on database
+                    } else {
+                        const mentah = await erdwpe.checkNumberStatus(bloknum) //VALIDATE WHATSAPP NUMBER
+                        const hasil = mentah.canReceiveMessage ? `Blocked success\nTotal Nomor terblokir sekarang : *${blockedlist.length}*` : false
+                        if (!hasil) return erdwpe.reply(from, 'Nomor WhatsApp tidak valid [ Tidak terdaftar di WhatsApp ]', id); {
+                            await erdwpe.contactBlock(mentah.id._serialized)
+                            erdwpe.sendText(from, hasil)
+                        }
+                    }
+                    }
+                    break 
                     case 'lines':
                 if (isMedia && type === 'image' || isQuotedImage) {
                     const encryptMediaWt = isQuotedImage ? quotedMsg : message
