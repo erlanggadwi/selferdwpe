@@ -1040,7 +1040,7 @@ break
 
    case 'tiktoknowm2':
             case 'ttnowm2':
-            if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
+            if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm2 linktiktoknya', id)
             await erdwpe.reply(self, 'tunggu sebentar', id)
             const tiktok2 = await axios.get(`http://api.lolhuman.xyz/api/tiktok?apikey=${lolhuman}&url=${url}`)
             const tikto1 = tiktok2.data.result
@@ -1051,35 +1051,29 @@ break
                    case 'tiktoknowm':
             case 'ttnowm':
             if (!isUrl(url) && !url.includes('tiktok.com')) return await erdwpe.reply(self, 'cara menggunakannya #tiktoknowm linktiktoknya', id)
-            await erdwpe.reply(self, 'tunggu sebentar', id)
+            await erdwpe.reply(self, 'tunggu sebentar *kalau error bisa gunakan command #tiktoknowm2*', id)
             const tiktok = await axios.get(`https://api.lolhuman.xyz/api/tiktok3?apikey=${lolhuman}&url=${url}`)
             await erdwpe.sendFileFromUrl(self, tiktok.data.result, '', 'nih ngab', id)
             console.log('Sukses Mengirim')
             break   
-               case 'ytmp3':
+              case 'ytmp4':
                 if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp31 = await axios.get(`https://api.lolhuman.xyz/api/ytaudio?apikey=${lolhuman}&url=${url}`)
-            const ytmp312 = ytmp31.data.result.link[3]
-            //const ytmp3123 = `➸ *Judul*: ${ytmp312.title}\n➸ *Size*: ${ytmp312.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp312.link}`, '', id)
-            break     
-            case 'ytmp4':
-                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
-                await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp41 = await axios.get(`https://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
-            const ytmp412 = ytmp41.data.result.link
-            //const ytmp4123 = `➸ *Judul*: ${ytmp412.title}\n➸ *Size*: ${ytmp412.link.size}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp412.link}`, 'anu.mp4', '©ERDWPE BOT', '©ERDWPE BOT', id)
+            const ytmp41 = await axios.get(`https://docs-erdwpe.herokuapp.com/api/download/ytmp4?url=${url}&apikey=erdwpe28`)
+            const ytmp412 = ytmp41.data.result
+            const ytmp4123 = `➸ *title*: ${ytmp412.title}\n➸ *channel*: ${ytmp412.channel}\n➸ *published*: ${ytmp412.published}\n➸ *views*: ${ytmp412.views}`
+                await erdwpe.sendFileFromUrl(self, `${ytmp412.url}`, '', ytmp4123, id)
             break
-             case 'play':
+                case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const play3 = body.slice(6)
-            const play4 = await axios.get(`http://api.lolhuman.xyz/api/ytplay2?apikey=${lolhuman}&query=${play3}`)
-            const play5 = play4.data.result
-            const play6 = `➸ *Judul*: ${play5.title}`
-                await erdwpe.sendFileFromUrl(self, `${play5.audio}`, '', play6, id)
+            const play4 = await axios.get(`https://docs-erdwpe.herokuapp.com/api/download/ytmp3?url=${play3}&apikey=erdwpe28`)
+            const ytmp5 = await fetch(play4.data.result.url);
+            const buffer6 = await ytmp5.buffer();
+            await fs.writeFile('./temp/audio/audio.mp3', buffer6)
+            await erdwpe.sendPtt(self, './temp/audio/audio.mp3', 'lagu.mp3', '', id)
+            fs.unlinkSync(`./temp/audio/audio.mp3`)
             break 
             case 'pptiktok':
                const pptt = body.slice(10)
