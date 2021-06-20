@@ -412,7 +412,7 @@ break
                             .on('progress', (progress) => console.log(color('[FFmpeg]', 'green'), progress))
                             .on('end', async () => {
                                 console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
-                                await erdwpe.sendPtt(self, fileOutputPath, id)
+                                await erdwpe.sendFile(self, fileOutputPath, id)
                                 console.log(color('[WAPI]', 'green'), 'Success sending audio!')
                                 setTimeout(() => {
                                     fs.unlinkSync(fileInputPath)
@@ -1064,15 +1064,15 @@ break
             const ytmp4123 = `➸ *title*: ${ytmp412.title}\n➸ *channel*: ${ytmp412.channel}\n➸ *published*: ${ytmp412.published}\n➸ *views*: ${ytmp412.views}`
                 await erdwpe.sendFileFromUrl(self, `${ytmp412.url}`, '', ytmp4123, id)
             break
-                case 'play':
+       case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
             const play3 = body.slice(6)
-            const play4 = await axios.get(`https://docs-erdwpe.herokuapp.com/api/download/ytmp3?url=${play3}&apikey=erdwpe28`)
-            const ytmp5 = await fetch(play4.data.result.url);
+            const play4 = await axios.get(`https://api.lolhuman.xyz/api/ytplay2?apikey=${lolhuman}&query=${play3}`)
+            const ytmp5 = await fetch(play4.data.result.audio);
             const buffer6 = await ytmp5.buffer();
             await fs.writeFile('./temp/audio/audio.mp3', buffer6)
-            await erdwpe.sendPtt(self, './temp/audio/audio.mp3', 'lagu.mp3', '', id)
+            await erdwpe.sendFile(self, './temp/audio/audio.mp3', 'lagu.mp3', '', id)
             fs.unlinkSync(`./temp/audio/audio.mp3`)
             break 
             case 'pptiktok':
@@ -1147,7 +1147,7 @@ break
                             .on('progress', (progress) => console.log(color('[FFmpeg]', 'green'), progress))
                             .on('end', async () => {
                                 console.log(color('[FFmpeg]', 'green'), 'Processing finished!')
-                                await erdwpe.sendPtt(self, fileOutputPath, id)
+                                await erdwpe.sendFile(self, fileOutputPath, id)
                                 console.log(color('[WAPI]', 'green'), 'Success sending audio!')
                                 setTimeout(() => {
                                     fs.unlinkSync(fileInputPath)
