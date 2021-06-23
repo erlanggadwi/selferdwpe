@@ -196,7 +196,7 @@ module.exports = handler = async (erdwpe = new erdwpe(), message) => {
 
                case 'self':
           if (setting.banChats === true) return
-          if (!isOwner) return erdwpe.reply(self, 'Perintah ini hanya bisa di gunakan oleh Owner erdwpe', id)
+          if (!isOwner) return erdwpe.reply(self, 'Perintah ini hanya bisa di fakan oleh Owner erdwpe', id)
           setting.banChats = true
           banChats = true
           fs.writeFileSync('./database/setting.json', JSON.stringify(setting, null, 2))
@@ -750,7 +750,7 @@ break
                     const datagun = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotogun = await uploadImages(datagun, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=cross-gun&text=${fotogun}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://lindow-api.herokuapp.com/api/crossgun?img=${fotogun}&apikey=LindowApi`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -762,7 +762,7 @@ break
                     const datagtav = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotogtav = await uploadImages(datagtav, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=gtav&text=${fotogtav}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://lindow-api.herokuapp.com/api/grandtheftauto?img=${fotogtav}&apikey=LindowApi`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -857,7 +857,7 @@ break
                     const datapencil = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotopencil = await uploadImages(datapencil, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=pencil-two&text=${fotopencil}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://lindow-api.herokuapp.com/api/sketcheffect?img=${fotopencil}&apikey=LindowApi`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
@@ -882,7 +882,7 @@ break
                     const datapencil2 = await decryptMedia(encryptMediaWt, uaOverride)
                     const fotopencil2 = await uploadImages(datapencil2, `fotoProfilWt.${sender.id}`)
                     await erdwpe.reply(self, 'tunggu sebentar', id)
-                    await erdwpe.sendFileFromUrl(self, `https://api-exteam.herokuapp.com/api/photooxy/foto?tema=pencil&text=${fotopencil2}`, 'dah jadi', 'nih ngab', id)
+                    await erdwpe.sendFileFromUrl(self, `https://lindow-api.herokuapp.com/api/pencil?img=${fotopencil2}&apikey=LindowApi`, 'dah jadi', 'nih ngab', id)
                     console.log('Success sending Wasted image!')
                 } else {
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
