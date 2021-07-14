@@ -771,6 +771,18 @@ break
                     await erdwpe.reply(self, '*mana gambarnya ngab*', id)
                 }
             break
+            case 'removebg':
+                if (isMedia && type === 'image' || isQuotedImage) {
+                    const encryptMediaWt = isQuotedImage ? quotedMsg : message
+                    const remobg = await decryptMedia(encryptMediaWt, uaOverride)
+                    const removebg = await uploadImages(remobg, `fotoProfilWt.${sender.id}`)
+                    await erdwpe.reply(self, 'tunggu sebentar', id)
+                    await erdwpe.sendFileFromUrl(self, `https://api.lolhuman.xyz/api/removebg?apikey=${lolhuman}&img=${removebg}`, 'dah jadi', 'nih ngab', id)
+                    console.log('Success sending Wasted image!')
+                } else {
+                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
+                }
+            break
                  case 'unblock': { //menambahkan nomor ke database 
                 if (!isOwner) return erdwpe.reply(from, 'Maaf, hanya admin bot yang dapat unblok user', id)
                 if (!args.length >= 1) return erdwpe.reply(from, 'Nomornya mana kak?')  
@@ -1059,14 +1071,13 @@ break
             await erdwpe.sendFileFromUrl(self, tiktok.data.result, '', 'nih ngab', id)
             console.log('Sukses Mengirim')
             break   
-              case 'ytmp4':
-                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
-                await erdwpe.reply(self, '_tunggu sebentar_', id)
-            const ytmp41 = await axios.get(`https://docs-erdwpe.herokuapp.com/api/download/ytmp4?url=${url}&apikey=erdwpe28`)
-            const ytmp412 = ytmp41.data.result
-            const ytmp4123 = `➸ *title*: ${ytmp412.title}\n➸ *channel*: ${ytmp412.channel}\n➸ *published*: ${ytmp412.published}\n➸ *views*: ${ytmp412.views}`
-                await erdwpe.sendFileFromUrl(self, `${ytmp412.url}`, '', ytmp4123, id)
-            break
+            case 'fbdl':
+                if (!isUrl(url) && !url.includes('facebook.com')) return await erdwpe.reply(self, 'cara menggunakannya #fbdl linkfb', id)
+                await erdwpe.reply(self, 'tunggu sebentar', id)
+                const facebook = await axios.get(`https://api.lolhuman.xyz/api/facebook2?apikey=${lolhuman}&url=${url}`)
+                await erdwpe.sendFileFromUrl(self, facebook.data.result, '', 'nih ngab', id)
+                console.log('Sukses Mengirim')
+                break   
        case 'play':
              if (args.length == 0) return erdwpe.reply(from, `Untuk mencari lagu from youtube\n\nPenggunaan: #play judul lagu`, id)
                 await erdwpe.reply(self, '_tunggu sebentar_', id)
@@ -1083,55 +1094,6 @@ break
                erdwpe.sendFileFromUrl(self, `https://api.lolhuman.xyz/api/pptiktok/${pptt}?apikey=${lolhuman}`, 'pp.jpeg' , '©ERDWPE BOT', '©ERDWPE BOT', id)
               break
 
-         case 'ytmp32':
-                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
-                await erdwpe.reply(self, '_tunggu sebentar_', id)
-                const music_yt = await axios.get(`http://lolhuman.herokuapp.com/api/ytaudio?apikey=${lolhuman}&url=${url}`)
-                try {
-                const { title, uploader, duration, view, like, description, link } = music_yt.data.result
-                const cpt = `   *LAGU DI TEMUKAN* ✨\n
-💠 Title✨: ${title}
-💠 Upload✨: ${uploader}
-💠 Duration✨: ${duration}
-💠 Views✨: ${view}
-💠 Like✨ : ${like}
-   
-   *LAGU SEDANG DI KIRIM*`
-                await erdwpe.reply(self, `${cpt}`, id)
-                const pree = await fetch(link[0].link);
-                const buffer = await pree.buffer();
-                await fs.writeFile('./temp/audio/audio.mp3', buffer)
-                await erdwpe.sendFile(self, './temp/audio/audio.mp3', 'lagu.mp3', '', id)
-                fs.unlinkSync(`./temp/audio/audio.mp3`)
-                } catch {
-                erdwpe.sendFileFromUrl(self, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
-                }
-            break
-            case 'ytmp42':
-                if (!isUrl(url) && !url.includes('youtu.be')) return await erdwpe.reply(self, 'format salah', id)
-                await erdwpe.reply(self, '_tunggu sebentar_', id)
-                const music_yt2 = await axios.get(`http://api.lolhuman.xyz/api/ytvideo?apikey=${lolhuman}&url=${url}`)
-                try {
-                const { title, uploader, duration, view, like, dislike, link } = music_yt2.data.result
-                const cpt2 = `   *VIDEO DI TEMUKAN* ✨\n
-💠 Title✨: ${title}
-💠 Upload✨: ${uploader}
-💠 Duration✨: ${duration}
-💠 Views✨: ${view}
-💠 Like✨ : ${like}
-💠 Dislike✨ : ${dislike}
-   
-   *VIDEO SEDANG DI KIRIM*`
-                await erdwpe.reply(self, `${cpt2}`, id)
-                const pree2 = await fetch(link[0].link);
-                const buffer = await pree2.buffer();
-                await fs.writeFile('./temp/video/video.mp4', buffer)
-                await erdwpe.sendFile(self, './temp/video/video.mp4', 'video.mp4', '', id)       
-                fs.unlinkSync(`./temp/video/video.mp4`)
-                } catch {
-                erdwpe.sendFileFromUrl(self, 'https://img.pngio.com/error-icons-png-vector-free-icons-and-png-backgrounds-error-png-500_500.png', 'lol.jpg', 'Lagu Gagal Di dapat Kan', id)
-                }
-            break
             case 'nightcore':
                     await erdwpe.reply(self, '_tunggu sebentar_', id)
                     const encryptMedia = isQuotedAudio || isQuotedVoice ? quotedMsg : message
@@ -1186,34 +1148,7 @@ break
                     await erdwpe.reply(self, 'Error!', id)
                 })
             break
-            case 'twtprof':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Format salah!\nuntuk meng-stalk akun Twitter seseorang\ngunakan ${prefix}twtprof username`, id)
-                await erdwpe.reply(self, msg3.wait(), id)
-                stalker.twitter(query)
-                .then(async ({result}) => {
-                    const { full_name, username, followers, following, tweets, profile, verified, listed_count, favourites, joined_on, profile_banner } = await result
-                    await erdwpe.sendFileFromUrl(self, profile, 'ProfileTwitter.jpg', `➸ *Username*: ${username}\n *Full Name*: ${full_name}\n➸ *Followers*: ${followers}\n➸ *Following*: ${following}\n➸ *Tweet*: ${tweets}\n➸ *Is_Verified*: ${verified}\n➸ *Favourites*: ${favourites}\n➸ *Listed Count*: ${listed_count}\n➸ *Joined On*: ${joined_on}\n➸ *Profile Banner*: ${profile_banner}`, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            case 'github':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Format salah!\nuntuk meng-stalk akun Github\ngunakan ${prefix}github username`, id)
-                await erdwpe.reply(self, msg3.wait(), id)
-                stalker.github(query)
-                .then(async ({result}) => {
-                    const { username, id, profile_pic, fullname, company, blog, location, email, hireable, biografi, public_repository, public_gists, followers, following, joined_on, last_updated, profile_url} = await result
-                    await erdwpe.sendFileFromUrl(self, profile_pic, 'ProfileGithub.jpg', `➸ *Username*: ${username}\n➸ *Full Name*: ${fullname}\n➸ *ID*: ${id}\n➸ *Company*: ${company}\n➸ *Blog*: ${blog}\n➸ *Location*: ${location}\n➸ *Email*: ${email}\n➸ *Hireable*: ${hireable}\n➸ *Biography*: ${biografi}\n➸ *Public Repository*: ${public_repository}\n➸ *Public Gists*: ${public_gists}\n➸ *Followers*: ${followers}\n➸ *Following*: ${following}\n➸ *Joined On*: ${joined_on}\n➸ *Last Updated*: ${last_updated}\n➸ *Profile URL*: ${profile_url}`, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
+
                case 'jadwalsholat':
                 if (args.length == 0) return erdwpe.reply(self, `Untuk mencari jadwal sholat\n\nPenggunaan: #jadwalsholat surabaya`, id)
                 const sholat = body.slice(14)
@@ -1245,83 +1180,8 @@ break
                     await erdwpe.reply(self, 'Error!', id)
                 })
             break
-            case 'balikhuruf':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk membalik huruf\ngunakan ${prefix}balikhuruf teks`, id)
-                fun.balikhuruf(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, result.kata, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-               case 'alay':
-                if (isQuotedText){
-                    const alay1 = body.slice(6)
-                    const alay2 = axios.get(self, `http://api.lolhuman.xyz/api/alay?apikey=${lolhuman}&text=${alay1}`, id)
-                    await erdwpe.reply(self, alay2.data.result, id)
-                    console.log('Success')
-                } else {
-                    await erdwpe.reply(self, '*mana gambarnya ngab*', id)
-                }
-            break
-            case 'hitunghuruf':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk menghitung jumlah huruf\ngunakan ${prefix}hitunghuruf teks`, id)
-                fun.hitunghuruf(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, result.jumlah, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            case 'hilih':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk membuat hilih teks\ngunakan ${prefix}hilih teks\n\nContoh: ${prefix}hilih halah bacot`, id)
-                fun.hilihteks(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, result.kata, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
             /* END OF FUN MENU */
             
-            /* SPAMMER */
-            case 'email':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query.includes('|')) return await erdwpe.reply(self, `Untuk mengirim email kepada seseorang\ngunakan ${prefix}email target | subjek | pesan`, id)
-                const target = query.substring(0, query.indexOf('|') - 1)
-                const subjek = query.substring(query.indexOf('|') + 2, query.lastIndexOf('|') - 1)
-                const pesan = query.substring(query.lastIndexOf('|') + 2)
-                spammer.email(target, subjek, pesan)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, result.log_lengkap, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            case 'call':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk mengirim panggilan kepada seseorang\ngunakan ${prefix}call nomor_telpon`, id)
-                spammer.call(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, result.logs, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            /* END OF SPAMMER */
 
             /* EDUCATION */
             case 'covidindo':
@@ -1335,46 +1195,7 @@ break
                     await erdwpe.reply(self, 'Error!', id)
                 })
             break
-            case 'kbbi':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk mencari kata KBBI\ngunakan ${prefix}kbbi query\n\nContoh: ${prefix}kbbi manusia`, id)
-                await erdwpe.reply(self, msg3.wait(), id)
-                education.kbbi(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, `➸ *Judul*: ${result.judul}\n➸ *PageID*: ${result.pageid}\n➸ *Isi Konten*: ${result.isi_konten}`, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            case 'wiki':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk mencari Wikipedia\ngunakan ${prefix}wiki query\n\nContoh: ${prefix}wiki indonesia`, id)
-                await erdwpe.reply(self, msg3.wait(), id)
-                education.wikipedia(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, `➸ *Judul*: ${result.judul}\n➸ *PageID*: ${result.pageid}\n➸ *Isi Konten*: ${result.isi_konten}`, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            case 'wikien':
-                //if (!isRegistered) return await erdwpe.reply(self, msg.notRegistered(pushname), id)
-                if (!query) return await erdwpe.reply(self, `Untuk mencari Wikipedia bahasa inggris\ngunakan ${prefix}wikien query\n\nContoh: ${prefix}wikien indonesia`, id)
-                await erdwpe.reply(self, msg.wait(), id)
-                education.wikipediaen(query)
-                .then(async ({result}) => {
-                    await erdwpe.reply(self, `➸ *Title*: ${result.judul}\n➸ *PageID*: ${result.pageid}\n➸ *Content*: ${result.desc}`, id)
-                })
-                .catch(async (err) => {
-                    console.error(err)
-                    await erdwpe.reply(self, 'Error!', id)
-                })
-            break
-            /* END OF EDUCATION */
+
 
             /* MODERATIOR CMDS */
              case 'kick':
