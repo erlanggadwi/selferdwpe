@@ -650,10 +650,13 @@ break
             case 'attp':
                 if (!query) return await erdwpe.reply(self, 'untuk menggunakan command ini ketik #attp xrlangga', id)
                 const textattp = body.slice(6)
-                erdwpe.sendStickerfromUrl(self, `http://api.lolhuman.xyz/api/attp?apikey=${lolhuman}&text=${textattp}`, { author: 'BOT STICKER', pack: '©ERDWPE BOT' })
-                console.log('OTW NGAB')
-            break
-
+                const textattp3 = await fetch(`http://api.lolhuman.xyz/api/attp?apikey=${lolhuman}&text=${textattp}`);
+                const textattp4 = await textattp3.buffer();
+                await fs.writeFile('./temp/audio/attp.png', textattp4)
+                await erdwpe.sendImageAsSticker(self, './temp/audio/attp.png', { author: 'BOT STICKER', pack: '©ERDWPE BOT' })
+                fs.unlinkSync(`./temp/audio/attp.png`)
+                break
+            
                case 'ttp':
                 try
                 {
