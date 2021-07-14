@@ -49,10 +49,12 @@ exports.menu = (pushname) => {
 - _${prefix}tovid_
 - _${prefix}emot_
 - _${prefix}play_
+- _${prefix}fbdl_
 - _${prefix}ocr_
 - _${prefix}tiktoknowm_
 - _${prefix}tomp3_
 - _${prefix}bass_
+- _${prefix}removebg_
 - _${prefix}quotemaker_
 - _${prefix}igdl_ [link ig]
 - _${prefix}pptiktok_ [username]
@@ -60,12 +62,8 @@ exports.menu = (pushname) => {
 - _${prefix}nhder_
 - _${prefix}upscale_
 - _${prefix}twtprof_
-- _${prefix}github_
-- _${prefix}email_
-- _${prefix}call_
 - _${prefix}fakta_
 - _${prefix}quotes_
-- _${prefix}cersex_
 - _${prefix}puisi_
 - _${prefix}cerpen_
 - _${prefix}loli_
